@@ -25,7 +25,18 @@ public class PlayerTags {
 	
 	public static void addTag(Player player, String tag) {
 		
-		String custName = "§" + COLOR_ID_MAP.get(Color.PURPLE) + "[AFK]" + "§" + COLOR_ID_MAP.get(Color.WHITE) + player.getName();
+		char modifier = COLOR_ID_MAP.get(Color.PURPLE);
+		String origCustName = player.getCustomName();
+		
+		if(player == null) return;
+		if(origCustName.length() <= 1) return;
+
+		if(origCustName.charAt(0) == '§') {
+			
+			modifier = origCustName.charAt(1);
+		}
+		
+		String custName = "§" + modifier + tag + "§" + COLOR_ID_MAP.get(Color.WHITE) + player.getName();
 
 		player.setPlayerListName(custName);
 		player.setCustomName(custName);
@@ -36,7 +47,7 @@ public class PlayerTags {
 	public static boolean removeTag(Player player, String tag) {
 		
 		String custName = player.getCustomName();
-		custName = custName.substring("§0[AFK]§0".length());
+		custName = custName.substring(("§0" + tag + "§0").length());
 		
 		player.setPlayerListName(custName);
 		player.setCustomName(custName);
