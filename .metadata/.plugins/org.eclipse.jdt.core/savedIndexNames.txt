@@ -1,3 +1,0 @@
-INDEX VERSION 1.129+C:\Users\Chris\EclipseProjects\MystPlugins\.metadata\.plugins\org.eclipse.jdt.core
-1525087677.index
-1883395461.index

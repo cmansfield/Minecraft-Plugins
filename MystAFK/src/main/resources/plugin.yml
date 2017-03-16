@@ -1,0 +1,32 @@
+name: MystAFK
+main: io.github.cmansfield.MystAFK.MystAFK
+version: 0.0.1
+author: AirsoftingFox
+description: A custom AFK plugin for http://mystserver.enjin.com/
+commands:
+    AFK:
+        description: Toggles a player's AFK status
+        usage: /AFK
+    bypassAFK:
+        description: Makes a player exempt from the AFK checks
+        usage: /bypassAFK
+        
+permissions:
+    mystafk.*:
+        description: Gives access to all permissions of MystAFK.
+        default: op
+        children:
+            mystafk.command.afk: true
+            mystafk.command.bypassAFK: true
+    mystafk.commands.*:
+        description: Gives access to all commands of MystAFK.
+        default: op
+        children:
+            mystafk.command.afk: true
+            mystafk.command.bypassAFK: true
+    mystafk.command.afk:
+        description: Toggles a player's AFK status
+        default:
+    mystafk.command.bypassAFK:
+        description: Makes a player exempt from the AFK checks
+        default: op

@@ -1,3 +1,7 @@
+
+.*
+!/.gitignore
+
 #OS junk files
 [Tt]humbs.db
 *.DS_Store
@@ -8,7 +12,7 @@
 #Eclipse
 [Tt]arget/
 .settings/
-.metadata/
+.metadata/*
 
 #Visual Studio files
 *.[Oo]bj
