@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import org.bukkit.Bukkit;
-import org.bukkit.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import PlayerTags.PlayerTags;
+
 
 public final class MystAFK extends JavaPlugin {
 
@@ -43,7 +44,7 @@ public final class MystAFK extends JavaPlugin {
     
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-    	
+
     	String msg;
     	
     	// Creating a predicate (a delayed function) to 
@@ -80,12 +81,8 @@ public final class MystAFK extends JavaPlugin {
     			// Update the global chat message
     			msg = sender.getName() + " is no longer AFK";
     			
-    			String custName = plr.getCustomName();
-    			custName = custName.substring("[AFK]".length());
-    			
-    			plr.setPlayerListName(custName);
-    			plr.setCustomName(custName);
-    			plr.setDisplayName(custName);
+    			// Remove the AFK player tag
+    			PlayerTags.removeTag(plr, "[AFK]");
     		}
     		else {
     			
@@ -94,11 +91,8 @@ public final class MystAFK extends JavaPlugin {
     			// Update the global chat message
     			msg = sender.getName() + " is now AFK";
     			
-    			String custName = "[AFK]" + plr.getName();
-    			
-    			plr.setPlayerListName(custName);
-    			plr.setCustomName(custName);
-    			plr.setDisplayName(custName);
+    			// Add AFK tag to player
+    			PlayerTags.addTag(plr, "[AFK]");
     		}
 
     		// Send the message to all online players
@@ -121,6 +115,7 @@ public final class MystAFK extends JavaPlugin {
     public boolean isAFK(Player player) {
 
 		if(afkPlayers.contains(player)) return true;
-		else return false;
+		
+		return false;
     }
 }
