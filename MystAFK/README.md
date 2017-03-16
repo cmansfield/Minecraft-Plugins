@@ -81,8 +81,8 @@
 <li>[x] Add AFK player to an AFK list</li>
 <li>[x] Update tab-list to show they are AFK</li>
 <li>[x] Update chat to show they are AFK</li>
-<li>[ ] Add color to AFK prefix</li>
-<li>[ ] Check to ensure the player has the right permissions for commands</li>
+<li>[x] Add color to AFK prefix</li>
+<li>[x] Check to ensure the player has the right permissions for commands</li>
 <li>[ ] Prevent messages to AFK players</li>
 <li>[ ] Prevent World interaction with player</li>
 <li>[ ] Prevent Player interaction with world</li>

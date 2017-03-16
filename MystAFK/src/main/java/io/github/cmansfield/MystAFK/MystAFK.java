@@ -1,11 +1,17 @@
 
 
+// TODO: Make sure permissions are working correctly
+// TODO: Make sure added player tags don't mess up previous tags
+
+
+
 package io.github.cmansfield.MystAFK;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -47,31 +53,17 @@ public final class MystAFK extends JavaPlugin {
 
     	String msg;
     	
-    	// Creating a predicate (a delayed function) to 
-    	// be used later on in multiple places
-    	Predicate<String> isPlayer = (cmdLbl) -> { 
+		// Check to see if the sender is a player or not
+    	if(!(sender instanceof Player)) {
     		
-    		// Check to see if the sender is a player or not
-        	if(!(sender instanceof Player)) {
-        		
-        		sender.sendMessage("Only a player can use the command " + cmdLbl);
-        		
-        		// They weren't a player
-        		return false;
-        	}
-    		
-        	// They are a player
-        	return true;
-    	};
+    		sender.sendMessage(ChatColor.RED + "Only a player can use the command " + commandLabel);
 
+    		return true;
+    	}
+
+		Player plr = (Player)sender;
     	
     	if(commandLabel.equalsIgnoreCase("afk")) {
-    		
-    		// Check to see if the sender is actually a player,
-    		// If not then return early from this function
-    		if(!isPlayer.test(commandLabel)) return false;
-
-    		Player plr = (Player)sender;
     		
     		// Toggle whether AFK is enabled or not
     		if(isAFK(plr)) {
@@ -103,10 +95,21 @@ public final class MystAFK extends JavaPlugin {
     	}
     	else if(commandLabel.equalsIgnoreCase("bypassAFK")) {
     		
-    		// Check to see if the sender is actually a player,
-    		// If not then return early from this function
-    		if(!isPlayer.test(commandLabel)) return false;
-
+    		if(!plr.hasPermission("mystafk.bypassAFK")) {
+    			
+    			plr.sendMessage(ChatColor.RED + "You do not have permission to use this command");
+    		
+    			return true;
+    		}
+    		
+    		if(isAFK(plr)) {
+    			
+    			plr.sendMessage(ChatColor.RED + "You can only use /bypassAFK when you are no longer AFK");
+    			
+    			return true;
+    		}
+    		
+    		plr.sendMessage("You are now using bypassAFK");
     	}
     	
     	return true;
