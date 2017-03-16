@@ -2,14 +2,18 @@
 
 package io.github.cmansfield.MystAFK;
 
+import java.util.function.Predicate;
+
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MystAFK extends JavaPlugin {
 
-	private final TestListener testListiner = new TestListener(this);
+	private final TestListener testListener = new TestListener(this);
 	private final String PLUGIN_NAME = "MystAFK";
 	public boolean isEnabled = false;
 	
@@ -17,8 +21,12 @@ public final class MystAFK extends JavaPlugin {
     public void onEnable() {
 
         PluginManager pm = getServer().getPluginManager();
-        pm.registerEvents(testListiner, this);
         
+        // Register our event listener with the 
+        // Bukkit plugin manager
+        pm.registerEvents(testListener, this);
+        
+        // Register our plugin's commands
         getCommand("afk").setExecutor(this);
         getCommand("bypassAFK").setExecutor(this);
         
@@ -34,11 +42,50 @@ public final class MystAFK extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
     	
+    	String msg;
+    	
+    	// Creating a predicate (a delayed function) to 
+    	// be used later on in multiple places
+    	Predicate<String> isPlayer = (cmdLbl) -> { 
+    		
+    		// Check to see if the sender is a player or not
+        	if(!(sender instanceof Player)) {
+        		
+        		sender.sendMessage("Only a player can use the command " + cmdLbl);
+        		
+        		// They weren't a player
+        		return false;
+        	}
+    		
+        	// They are a player
+        	return true;
+    	};
+
+    	
     	if(commandLabel.equalsIgnoreCase("afk")) {
     		
+    		// Check to see if the sender is actually a player,
+    		// If not then return early from this function
+    		if(!isPlayer.test(commandLabel)) return false;
+
+    		// Toggle whether AFK is enabled or not
     		isEnabled = !isEnabled;
+    		
+    		// Update the global chat message
+    		if(isEnabled) { msg = sender.getName() + " is now AFK"; }
+    		else { msg = sender.getName() + " is no longer AFK"; }
+    		
+    		// Send the message to all online players
+    		for(Player player : Bukkit.getOnlinePlayers()) {
+    			
+    			player.sendMessage(msg);
+    		}
     	}
     	else if(commandLabel.equalsIgnoreCase("bypassAFK")) {
+    		
+    		// Check to see if the sender is actually a player,
+    		// If not then return early from this function
+    		if(!isPlayer.test(commandLabel)) return false;
     		
     		//isEnabled = false;
     	}

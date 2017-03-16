@@ -74,8 +74,10 @@
 <ol>
 <li>[x] Hello World</li>
 <li>[x] Set up Git Repo for plugin</li>
-<li>[ ] Add plugin commands</li>
-<li>[ ] Toggle player AFK</li>
+<li>[x] Add plugin commands</li>
+<li>[x] Toggle player AFK</li>
+<li>[x] Only allow commands to be executed by players</li>
+<li>[x] Notify all players that a given player is AFK</li>
 <li>[ ] Add AFK player to an AFK list</li>
 <li>[ ] Update tab-list to show they are AFK</li>
 <li>[ ] Prevent messages to AFK players</li>
