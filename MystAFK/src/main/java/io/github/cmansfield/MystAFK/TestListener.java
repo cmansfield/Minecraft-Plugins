@@ -22,7 +22,7 @@ public class TestListener implements Listener{
 		
 		if(event.getPlayer() == null) { return; }
 		
-		if(!plugin.isEnabled) return;
+		if(!plugin.isAFK(event.getPlayer())) return;
 		
 		// Check to see if a physical action occurs, if there
 		// is one then the player could have stepped on a pressure

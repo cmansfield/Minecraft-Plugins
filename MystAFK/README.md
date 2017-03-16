@@ -78,15 +78,18 @@
 <li>[x] Toggle player AFK</li>
 <li>[x] Only allow commands to be executed by players</li>
 <li>[x] Notify all players that a given player is AFK</li>
-<li>[ ] Add AFK player to an AFK list</li>
-<li>[ ] Update tab-list to show they are AFK</li>
+<li>[x] Add AFK player to an AFK list</li>
+<li>[x] Update tab-list to show they are AFK</li>
+<li>[x] Update chat to show they are AFK</li>
+<li>[ ] Add color to AFK prefix</li>
+<li>[ ] Check to ensure the player has the right permissions for commands</li>
 <li>[ ] Prevent messages to AFK players</li>
 <li>[ ] Prevent World interaction with player</li>
 <li>[ ] Prevent Player interaction with world</li>
 <li>[ ] Prevent Player interaction with player</li>
 <li>[ ] Add AFK timer to the server</li>
 <li>[ ] Automatically add players to AFK if timed out</li>
-<li>[ ] In chat warnings that the player is about to go AFK</li>
+<li>[ ] In chat / scoreboard warnings that the player is about to go AFK</li>
 <li>[ ] Capcha</li>
 <li>[ ] Permissions</li>
 <li>[ ] Reload command</li>

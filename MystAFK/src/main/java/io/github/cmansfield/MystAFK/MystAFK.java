@@ -2,9 +2,11 @@
 
 package io.github.cmansfield.MystAFK;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
-
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -14,7 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class MystAFK extends JavaPlugin {
 
 	private final TestListener testListener = new TestListener(this);
-	private final String PLUGIN_NAME = "MystAFK";
+	private final List<Player> afkPlayers = new ArrayList<Player>();
 	public boolean isEnabled = false;
 	
     @Override
@@ -30,13 +32,13 @@ public final class MystAFK extends JavaPlugin {
         getCommand("afk").setExecutor(this);
         getCommand("bypassAFK").setExecutor(this);
         
-        getLogger().info(PLUGIN_NAME + " Plugin Enabled");
+        getLogger().info(this.getName() + " Plugin Enabled");
     }
 
     @Override
     public void onDisable() {
     
-    	getLogger().info(PLUGIN_NAME + " Plugin Disabled");
+    	getLogger().info(this.getName() + " Plugin Disabled");
     }
     
     @Override
@@ -68,13 +70,37 @@ public final class MystAFK extends JavaPlugin {
     		// If not then return early from this function
     		if(!isPlayer.test(commandLabel)) return false;
 
+    		Player plr = (Player)sender;
+    		
     		// Toggle whether AFK is enabled or not
-    		isEnabled = !isEnabled;
-    		
-    		// Update the global chat message
-    		if(isEnabled) { msg = sender.getName() + " is now AFK"; }
-    		else { msg = sender.getName() + " is no longer AFK"; }
-    		
+    		if(isAFK(plr)) {
+    			
+    			afkPlayers.remove(plr);
+    			
+    			// Update the global chat message
+    			msg = sender.getName() + " is no longer AFK";
+    			
+    			String custName = plr.getCustomName();
+    			custName = custName.substring("[AFK]".length());
+    			
+    			plr.setPlayerListName(custName);
+    			plr.setCustomName(custName);
+    			plr.setDisplayName(custName);
+    		}
+    		else {
+    			
+    			afkPlayers.add(plr);
+    			
+    			// Update the global chat message
+    			msg = sender.getName() + " is now AFK";
+    			
+    			String custName = "[AFK]" + plr.getName();
+    			
+    			plr.setPlayerListName(custName);
+    			plr.setCustomName(custName);
+    			plr.setDisplayName(custName);
+    		}
+
     		// Send the message to all online players
     		for(Player player : Bukkit.getOnlinePlayers()) {
     			
@@ -86,10 +112,15 @@ public final class MystAFK extends JavaPlugin {
     		// Check to see if the sender is actually a player,
     		// If not then return early from this function
     		if(!isPlayer.test(commandLabel)) return false;
-    		
-    		//isEnabled = false;
+
     	}
     	
     	return true;
+    }
+    
+    public boolean isAFK(Player player) {
+
+		if(afkPlayers.contains(player)) return true;
+		else return false;
     }
 }
