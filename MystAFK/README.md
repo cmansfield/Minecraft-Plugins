@@ -83,6 +83,7 @@
 <li>[x] Update chat to show they are AFK</li>
 <li>[x] Add color to AFK prefix</li>
 <li>[x] Check to ensure the player has the right permissions for commands</li>
+<li>[x] Prevent AFK players from sending messages</li>
 <li>[ ] Prevent messages to AFK players</li>
 <li>[ ] Prevent World interaction with player</li>
 <li>[ ] Prevent Player interaction with world</li>
@@ -90,6 +91,7 @@
 <li>[ ] Add AFK timer to the server</li>
 <li>[ ] Automatically add players to AFK if timed out</li>
 <li>[ ] In chat / scoreboard warnings that the player is about to go AFK</li>
+<li>[ ] Complete the bypassAFK command</li>
 <li>[ ] Capcha</li>
 <li>[ ] Permissions</li>
 <li>[ ] Reload command</li>

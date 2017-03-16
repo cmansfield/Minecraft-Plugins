@@ -9,20 +9,22 @@ package io.github.cmansfield.MystAFK;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import Listeners.MessageSenderListener;
 import PlayerTags.PlayerTags;
 
 
 public final class MystAFK extends JavaPlugin {
 
-	private final TestListener testListener = new TestListener(this);
+	private final List<Listener> myListeners = new ArrayList<Listener>();
 	private final List<Player> afkPlayers = new ArrayList<Player>();
 	public boolean isEnabled = false;
 	
@@ -31,10 +33,16 @@ public final class MystAFK extends JavaPlugin {
 
         PluginManager pm = getServer().getPluginManager();
         
-        // Register our event listener with the 
-        // Bukkit plugin manager
-        pm.registerEvents(testListener, this);
+        // Add each of our plugin's listeners heres
+        myListeners.add(new MessageSenderListener(this));
         
+        // Register all event listeners with the 
+        // Bukkit plugin manager
+        for(Listener listener : myListeners) {
+        	
+        	pm.registerEvents(listener, this);
+        }
+
         // Register our plugin's commands
         getCommand("afk").setExecutor(this);
         getCommand("bypassAFK").setExecutor(this);
