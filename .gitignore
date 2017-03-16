@@ -8,6 +8,7 @@
 #Eclipse
 [Tt]arget/
 .settings/
+.metadata/
 
 #Visual Studio files
 *.[Oo]bj
