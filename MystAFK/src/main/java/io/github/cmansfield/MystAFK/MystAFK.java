@@ -4,6 +4,7 @@
 // TODO: Make sure added player tags don't mess up previous tags
 // TODO: Use Regex to remove the player tag
 // TODO: Include blocking /msg to and from AFK players
+// TODO: Save player gamemode to be restored after AFK
 
 
 package io.github.cmansfield.MystAFK;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -28,7 +31,6 @@ public final class MystAFK extends JavaPlugin {
 
 	private final List<Listener> myListeners = new ArrayList<Listener>();
 	private final List<Player> afkPlayers = new ArrayList<Player>();
-	public boolean isEnabled = false;
 	
 	
     @Override
@@ -59,7 +61,9 @@ public final class MystAFK extends JavaPlugin {
     
     	// Remove all players from an AFK state
     	// before shutting down the plugin
-    	for(Player player : afkPlayers) { toggleAFK(player, false); }
+    	final List<Player> afkPlayersRemaining = new ArrayList<Player>();
+    	for(Player player : afkPlayers) afkPlayersRemaining.add(player);
+    	for(Player player : afkPlayersRemaining) { toggleAFK(player, false); }
     	
     	getLogger().info(this.getName() + " Plugin Disabled");
     }
@@ -80,7 +84,7 @@ public final class MystAFK extends JavaPlugin {
     		
     		toggleAFK((Player)sender);
     	}
-    	
+
     	return true;
     }
     
@@ -110,6 +114,12 @@ public final class MystAFK extends JavaPlugin {
 	
 			// Update the global chat message
 			msg = player.getName() + " is no longer AFK";
+
+			//player.setInvulnerable(false);
+			//player.setGravity(true);
+			//player.setGameMode(GameMode.SURVIVAL);
+			//player.setCanPickupItems(true);
+			//player.setCollidable(true);
 			
 			// Remove the AFK player tag
 			PlayerTags.removeTag(player, "[AFK]");
@@ -120,6 +130,13 @@ public final class MystAFK extends JavaPlugin {
 
 			// Update the global chat message
 			msg = player.getName() + " is now AFK";
+
+			//player.setInvulnerable(true);
+			//player.setGravity(false);
+			//player.setSpectatorTarget(player);
+			//player.setGameMode(GameMode.SPECTATOR);
+			//player.setCanPickupItems(false);
+			//player.setCollidable(false);
 			
 			// Add AFK tag to player
 			PlayerTags.addTag(player, "[AFK]");

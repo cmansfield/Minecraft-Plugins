@@ -84,6 +84,7 @@
 <li>[x] Prevent AFK players from sending messages</li>
 <li>[x] Prevent messages to AFK players</li>
 <li>[ ] Prevent personal messages to AFK players</li>
+<li>[ ] Add an AFK tag to the player's </li>
 <li>[ ] Prevent World interaction with player</li>
 <li>[ ] Prevent Player interaction with world</li>
 <li>[ ] Prevent Player interaction with player</li>

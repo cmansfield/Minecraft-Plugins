@@ -28,6 +28,8 @@ public class MessageSenderListener implements Listener{
 			
 			event.getPlayer().sendMessage(ChatColor.RED + "You cannot send messages while you are AFK");
 			
+			plugin.getLogger().info(event.getPlayer().getName() + " " + event.getMessage());
+			
 			// If the sending player is AFK then prevent 
 			// them from sending the message
 			event.setCancelled(true);
