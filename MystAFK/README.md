@@ -84,7 +84,7 @@
 <li>[x] Add color to AFK prefix</li>
 <li>[x] Check to ensure the player has the right permissions for commands</li>
 <li>[x] Prevent AFK players from sending messages</li>
-<li>[ ] Prevent messages to AFK players</li>
+<li>[x] Prevent messages to AFK players</li>
 <li>[ ] Prevent World interaction with player</li>
 <li>[ ] Prevent Player interaction with world</li>
 <li>[ ] Prevent Player interaction with player</li>

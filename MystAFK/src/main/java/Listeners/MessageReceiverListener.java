@@ -34,11 +34,11 @@ public class MessageReceiverListener implements Listener{
 		// receive this chat message
 		Set<Player> recipients = event.getRecipients();
 		
-//		for(Player player : recipients) {
-//			
-//			// Remove any player who is AFK from receiving
-//			// that chat message
-//			if(plugin.isAFK(player)) event.getRecipients().remove(player);
-//		}
+		for(Player player : recipients) {
+			
+			// Remove any player who is AFK from receiving
+			// that chat message
+			if(plugin.isAFK(player) && recipients.contains(player)) event.getRecipients().remove(player);
+		}
 	}
 }

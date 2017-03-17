@@ -4,6 +4,8 @@
 // TODO: Make sure added player tags don't mess up previous tags
 // TODO: Make sure player state is restored when the plugin is disabled
 // TODO: Use Regex to remove the player tag
+// TODO: Fix custom tags being added twice to players
+// TODO: Include blocking /msg to and from AFK players
 
 
 package io.github.cmansfield.MystAFK;
