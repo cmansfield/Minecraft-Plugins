@@ -48,11 +48,12 @@ public class MessageReceiverListener implements Listener {
 		}
 	}
 	
-	@EventHandler
+	@EventHandler (priority = EventPriority.HIGHEST)
 	public void eventHandler(PlayerCommandPreprocessEvent event) {
 		
 		final List<String> cmdPatterns = Arrays.asList("^\\/[Mm][Ss][Gg]", "^\\/[Tt][Ee][Ll]{2}", "^\\/[Rr]", "^\\/[Ww][Hh][Ii][Ss][Pp][Ee][Rr]");
-		final String receiverPattern = "^\\/[A-Za-z]{1,7}\\s((?:(?!\\s).)*)";
+		final String receiverPattern = "^\\/[A-Za-z]{1,7}\\s+((?:(?!\\s).)*)";
+		final String AFK_PATTERN = "^\\/[Aa][Ff][Kk]$";
 		final Player player = event.getPlayer();
 		final String msg = event.getMessage();
 		Player recPlayer = null;
@@ -62,6 +63,18 @@ public class MessageReceiverListener implements Listener {
 		
 		
 		if(player == null) return;
+		
+		// Block all commands from any AFK player
+		regex = Pattern.compile(AFK_PATTERN);
+		match = regex.matcher(msg);
+		
+		if(!match.find() && plugin.isAFK(player)) {
+			
+			player.sendMessage(ChatColor.RED + "You cannot use commands while you are AFK");
+		
+			event.setCancelled(true);
+			return;
+		}
 		
 		// Grab the second parameter of the issued command
 		regex = Pattern.compile(receiverPattern);

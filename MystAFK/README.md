@@ -18,7 +18,6 @@
 			Don't change their position in the world
 			Can't be killed by mobs or other players
 			Player should be frozen 
-				Cannot interact with the world
 				cannot drop stuff
 				cannot pick stuff up
 				Cannot interact with the world
@@ -84,16 +83,18 @@
 <li>[x] Prevent messages to AFK players</li>
 <li>[x] Prevent AFK players from sending personal messages</li>
 <li>[x] Prevent personal messages to AFK players</li>
+<li>[x] Block all commands from afk players except for AFK</li>
+<li>[ ] Add AFK timer to the server</li>
+<li>[ ] Automatically add players to AFK if timed out</li>
 <li>[ ] Add an AFK tag to the player's NameTag</li>
 <li>[ ] Prevent World interaction with player</li>
 <li>[ ] Prevent Player interaction with world</li>
 <li>[ ] Prevent Player interaction with player</li>
-<li>[ ] Add AFK timer to the server</li>
-<li>[ ] Automatically add players to AFK if timed out</li>
 <li>[ ] In chat / scoreboard warnings that the player is about to go AFK</li>
 <li>[ ] Complete the bypassAFK permission</li>
 <li>[ ] Capcha</li>
 <li>[x] Permissions</li>
 <li>[ ] message.yml</li>
 <li>[ ] Plugin documentation</li>
+<li>[ ] Discuss adding a AFK command whitelist</li>
 </ol>
