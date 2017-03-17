@@ -70,7 +70,6 @@
 
 <p><strong>Milestones:</strong></p>
 <ol>
-<li>[x] Hello World</li>
 <li>[x] Set up Git Repo for plugin</li>
 <li>[x] Add plugin commands</li>
 <li>[x] Toggle player AFK</li>
@@ -84,7 +83,7 @@
 <li>[x] Prevent AFK players from sending messages</li>
 <li>[x] Prevent messages to AFK players</li>
 <li>[x] Prevent AFK players from sending personal messages</li>
-<li>[ ] Prevent personal messages to AFK players</li>
+<li>[x] Prevent personal messages to AFK players</li>
 <li>[ ] Add an AFK tag to the player's NameTag</li>
 <li>[ ] Prevent World interaction with player</li>
 <li>[ ] Prevent Player interaction with world</li>
