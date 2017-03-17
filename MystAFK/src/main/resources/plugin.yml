@@ -7,9 +7,6 @@ commands:
     AFK:
         description: Toggles a player's AFK status
         usage: /AFK
-    bypassAFK:
-        description: Makes a player exempt from the AFK checks
-        usage: /bypassAFK
         
 permissions:
     mystafk.*:

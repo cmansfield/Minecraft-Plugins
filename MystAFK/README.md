@@ -56,8 +56,6 @@
 		
 		Commands:
 			/AFK
-			/reload
-			/bypass
 			
 		Permissions:
 			bypass
@@ -85,16 +83,16 @@
 <li>[x] Check to ensure the player has the right permissions for commands</li>
 <li>[x] Prevent AFK players from sending messages</li>
 <li>[x] Prevent messages to AFK players</li>
+<li>[ ] Prevent personal messages to AFK players</li>
 <li>[ ] Prevent World interaction with player</li>
 <li>[ ] Prevent Player interaction with world</li>
 <li>[ ] Prevent Player interaction with player</li>
 <li>[ ] Add AFK timer to the server</li>
 <li>[ ] Automatically add players to AFK if timed out</li>
 <li>[ ] In chat / scoreboard warnings that the player is about to go AFK</li>
-<li>[ ] Complete the bypassAFK command</li>
+<li>[ ] Complete the bypassAFK permission</li>
 <li>[ ] Capcha</li>
-<li>[ ] Permissions</li>
-<li>[ ] Reload command</li>
+<li>[x] Permissions</li>
 <li>[ ] message.yml</li>
 <li>[ ] Plugin documentation</li>
 </ol>

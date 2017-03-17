@@ -2,9 +2,7 @@
 
 // TODO: Make sure permissions are working correctly
 // TODO: Make sure added player tags don't mess up previous tags
-// TODO: Make sure player state is restored when the plugin is disabled
 // TODO: Use Regex to remove the player tag
-// TODO: Fix custom tags being added twice to players
 // TODO: Include blocking /msg to and from AFK players
 
 
@@ -32,6 +30,7 @@ public final class MystAFK extends JavaPlugin {
 	private final List<Player> afkPlayers = new ArrayList<Player>();
 	public boolean isEnabled = false;
 	
+	
     @Override
     public void onEnable() {
 
@@ -50,21 +49,24 @@ public final class MystAFK extends JavaPlugin {
 
         // Register our plugin's commands
         getCommand("afk").setExecutor(this);
-        getCommand("bypassAFK").setExecutor(this);
-        
+
         getLogger().info(this.getName() + " Plugin Enabled");
     }
 
+    
     @Override
     public void onDisable() {
     
+    	// Remove all players from an AFK state
+    	// before shutting down the plugin
+    	for(Player player : afkPlayers) { toggleAFK(player, false); }
+    	
     	getLogger().info(this.getName() + " Plugin Disabled");
     }
     
+    
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-
-    	String msg;
 
 		// Check to see if the sender is a player or not
     	if(!(sender instanceof Player)) {
@@ -73,69 +75,64 @@ public final class MystAFK extends JavaPlugin {
 
     		return true;
     	}
-
-		Player plr = (Player)sender;
     	
     	if(commandLabel.equalsIgnoreCase("afk")) {
-
-    		// Toggle whether AFK is enabled or not
-    		if(isAFK(plr)) {
-
-    			afkPlayers.remove(plr);
-		
-    			// Update the global chat message
-    			msg = sender.getName() + " is no longer AFK";
-    			
-    			// Remove the AFK player tag
-    			PlayerTags.removeTag(plr, "[AFK]");
-    		}
-    		else {
-
-    			afkPlayers.add(plr);
-
-    			// Update the global chat message
-    			msg = sender.getName() + " is now AFK";
-    			
-    			// Add AFK tag to player
-    			PlayerTags.addTag(plr, "[AFK]");
-    		}
-
-    		// Send the message to all online players
-    		for(Player player : Bukkit.getOnlinePlayers()) {
-    			
-    			player.sendMessage(msg);
-    		}
-    	}
-    	else if(commandLabel.equalsIgnoreCase("bypassAFK")) {
     		
-    		// Check to make sure the player has the
-    		// right permissions to use this command
-    		if(!plr.hasPermission("mystafk.bypassAFK")) {
-    			
-    			plr.sendMessage(ChatColor.RED + "You do not have permission to use this command");
-    		
-    			return true;
-    		}
-    		
-    		// Is the player using the command
-    		// currently AFK?
-    		if(isAFK(plr)) {
-    			
-    			plr.sendMessage(ChatColor.RED + "You can only use /bypassAFK when you are no longer AFK");
-    			
-    			return true;
-    		}
-    		
-    		plr.sendMessage("You are now using bypassAFK");
+    		toggleAFK((Player)sender);
     	}
     	
     	return true;
     }
+    
     
     public boolean isAFK(Player player) {
 
 		if(afkPlayers.contains(player)) return true;
 		
 		return false;
+    }
+    
+    
+    private void toggleAFK(Player player) {
+    	
+    	toggleAFK(player, true);
+    }
+    
+    
+    private void toggleAFK(Player player, boolean broadcast) {
+    	
+    	String msg;
+
+		// Toggle whether AFK is enabled or not
+		if(isAFK(player)) {
+
+			afkPlayers.remove(player);
+	
+			// Update the global chat message
+			msg = player.getName() + " is no longer AFK";
+			
+			// Remove the AFK player tag
+			PlayerTags.removeTag(player, "[AFK]");
+		}
+		else {
+
+			afkPlayers.add(player);
+
+			// Update the global chat message
+			msg = player.getName() + " is now AFK";
+			
+			// Add AFK tag to player
+			PlayerTags.addTag(player, "[AFK]");
+		}
+
+		if(broadcast) {
+			
+			// Send the message to all online players
+			for(Player plr : Bukkit.getOnlinePlayers()) {
+				
+				plr.sendMessage(msg);
+			}
+		}
+
     }
 }
