@@ -83,8 +83,9 @@
 <li>[x] Check to ensure the player has the right permissions for commands</li>
 <li>[x] Prevent AFK players from sending messages</li>
 <li>[x] Prevent messages to AFK players</li>
+<li>[x] Prevent AFK players from sending personal messages</li>
 <li>[ ] Prevent personal messages to AFK players</li>
-<li>[ ] Add an AFK tag to the player's </li>
+<li>[ ] Add an AFK tag to the player's NameTag</li>
 <li>[ ] Prevent World interaction with player</li>
 <li>[ ] Prevent Player interaction with world</li>
 <li>[ ] Prevent Player interaction with player</li>

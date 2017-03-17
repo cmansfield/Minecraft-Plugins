@@ -3,7 +3,7 @@
 // TODO: Make sure permissions are working correctly
 // TODO: Make sure added player tags don't mess up previous tags
 // TODO: Use Regex to remove the player tag
-// TODO: Include blocking /msg to and from AFK players
+// TODO: Include blocking /msg to AFK players
 // TODO: Save player gamemode to be restored after AFK
 
 

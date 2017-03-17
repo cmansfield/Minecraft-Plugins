@@ -4,7 +4,10 @@ package Listeners;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -48,14 +51,30 @@ public class MessageReceiverListener implements Listener {
 	public void eventHandler(PlayerCommandPreprocessEvent event) {
 		
 		final List<String> cmdPatterns = Arrays.asList("^/[Mm][Ss][Gg]", "^/[Tt][Ee][Ll]{2}", "^/[Rr]", "^/[Ww][Hh][Ii][Ss][Pp][Ee][Rr]");
+		final Player player = event.getPlayer();
 		final String msg = event.getMessage();
-		final String cmd = "/msg";
+		Pattern regex;
+		Matcher match;
 		
-		if(msg.length() < cmd.length()) return;
 		
-		if(msg.substring(0, cmd.length()).contains(cmd)) {
+		if(player == null) return;
+		
+		for(String pattern : cmdPatterns) {
 			
-			plugin.getLogger().info(event.getMessage());
+			regex = Pattern.compile(pattern);
+			match = regex.matcher(msg);
+			
+			if(match.find()) {
+				
+				if(plugin.isAFK(player)) {
+					
+					player.sendMessage(ChatColor.RED + "You cannot send private messages while AFK");
+					
+					event.setCancelled(true);
+				}
+				
+				return;
+			}
 		}
 	}
 }
