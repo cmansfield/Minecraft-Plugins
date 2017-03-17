@@ -21,6 +21,8 @@ public class MessageSenderListener implements Listener{
 	@EventHandler (priority = EventPriority.HIGHEST)
 	public void eventHandler(AsyncPlayerChatEvent event) {
 		
+		if(event.getPlayer() == null) return;
+		
 		if(plugin.isAFK(event.getPlayer())) {
 			
 			// If the sending player is AFK then prevent 

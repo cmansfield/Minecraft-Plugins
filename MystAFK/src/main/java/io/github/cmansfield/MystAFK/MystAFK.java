@@ -2,7 +2,8 @@
 
 // TODO: Make sure permissions are working correctly
 // TODO: Make sure added player tags don't mess up previous tags
-
+// TODO: Make sure player state is restored when the plugin is disabled
+// TODO: Use Regex to remove the player tag
 
 
 package io.github.cmansfield.MystAFK;
@@ -18,6 +19,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import Listeners.MessageReceiverListener;
 import Listeners.MessageSenderListener;
 import PlayerTags.PlayerTags;
 
@@ -35,6 +37,7 @@ public final class MystAFK extends JavaPlugin {
         
         // Add each of our plugin's listeners heres
         myListeners.add(new MessageSenderListener(this));
+        myListeners.add(new MessageReceiverListener(this));
         
         // Register all event listeners with the 
         // Bukkit plugin manager
@@ -60,7 +63,7 @@ public final class MystAFK extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
     	String msg;
-    	
+
 		// Check to see if the sender is a player or not
     	if(!(sender instanceof Player)) {
     		
@@ -72,12 +75,12 @@ public final class MystAFK extends JavaPlugin {
 		Player plr = (Player)sender;
     	
     	if(commandLabel.equalsIgnoreCase("afk")) {
-    		
+
     		// Toggle whether AFK is enabled or not
     		if(isAFK(plr)) {
-    			
+
     			afkPlayers.remove(plr);
-    			
+		
     			// Update the global chat message
     			msg = sender.getName() + " is no longer AFK";
     			
@@ -85,9 +88,9 @@ public final class MystAFK extends JavaPlugin {
     			PlayerTags.removeTag(plr, "[AFK]");
     		}
     		else {
-    			
+
     			afkPlayers.add(plr);
-    			
+
     			// Update the global chat message
     			msg = sender.getName() + " is now AFK";
     			
@@ -103,6 +106,8 @@ public final class MystAFK extends JavaPlugin {
     	}
     	else if(commandLabel.equalsIgnoreCase("bypassAFK")) {
     		
+    		// Check to make sure the player has the
+    		// right permissions to use this command
     		if(!plr.hasPermission("mystafk.bypassAFK")) {
     			
     			plr.sendMessage(ChatColor.RED + "You do not have permission to use this command");
@@ -110,6 +115,8 @@ public final class MystAFK extends JavaPlugin {
     			return true;
     		}
     		
+    		// Is the player using the command
+    		// currently AFK?
     		if(isAFK(plr)) {
     			
     			plr.sendMessage(ChatColor.RED + "You can only use /bypassAFK when you are no longer AFK");

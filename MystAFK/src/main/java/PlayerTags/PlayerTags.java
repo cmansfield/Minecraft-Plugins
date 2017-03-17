@@ -25,19 +25,26 @@ public class PlayerTags {
 	
 	public static void addTag(Player player, String tag) {
 		
-		char modifier = COLOR_ID_MAP.get(Color.PURPLE);
-		String origCustName = player.getCustomName();
-		
 		if(player == null) return;
-		if(origCustName.length() <= 1) return;
+		
+		char modifier = COLOR_ID_MAP.get(Color.PURPLE);
+		String origCustName = ((player.getCustomName() == null) ? player.getName() : player.getCustomName());
 
+		// Is there a chat modifier already on the
+		// player's custom name?
 		if(origCustName.charAt(0) == '§') {
 			
 			modifier = origCustName.charAt(1);
 		}
 		
-		String custName = "§" + modifier + tag + "§" + COLOR_ID_MAP.get(Color.WHITE) + player.getName();
+		// If no tag was passed then return
+		if(tag.length() == 0) return;
+		if(origCustName.length() <= 1) return;
+		
+		// Generate a string with the new tag
+		String custName = "§" + modifier + tag + "§" + COLOR_ID_MAP.get(Color.WHITE) + origCustName;
 
+		// Add the new custom name name to the player
 		player.setPlayerListName(custName);
 		player.setCustomName(custName);
 		player.setCustomNameVisible(true);
@@ -46,8 +53,16 @@ public class PlayerTags {
 
 	public static boolean removeTag(Player player, String tag) {
 		
+		if(player == null) return false;
+		if(player.getCustomName() == null) return false;
+		
 		String custName = player.getCustomName();
-		custName = custName.substring(("§0" + tag + "§0").length());
+		String tagToRemove = "§0" + tag + "§0";
+		
+		if(custName.contains(tag)) {
+			
+			custName = custName.substring((tagToRemove).length());	
+		}
 		
 		player.setPlayerListName(custName);
 		player.setCustomName(custName);
