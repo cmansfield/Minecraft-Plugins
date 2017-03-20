@@ -3,6 +3,9 @@ package AFKplayers;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.bukkit.GameMode;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public class AFKplayers implements IAFKplayers {
@@ -35,6 +38,9 @@ public class AFKplayers implements IAFKplayers {
 		for(AFKplayer plr : players) {
 			
 			if(plr.getPlayer() == player) {
+				
+		    	player.setGameMode(GameMode.SURVIVAL);
+		    	plr.getEntity().remove();
 				
 				players.remove(plr);
 				return;
