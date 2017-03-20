@@ -2,9 +2,14 @@
 package AFKplayers;
 
 import org.bukkit.GameMode;
+import org.bukkit.Material;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.util.Vector;
 
 public class AFKplayer implements IAFKplayer {
 
@@ -21,6 +26,23 @@ public class AFKplayer implements IAFKplayer {
 		specEntity.setInvulnerable(true);
 		specEntity.setGravity(false);
 		specEntity.setCustomName(player.getCustomName());
+		specEntity.setVelocity(new Vector());
+		
+		ArmorStand as = (ArmorStand)specEntity;
+		as.setBasePlate(false);
+		as.setArms(true);
+		as.setBoots(new ItemStack(Material.DIAMOND_BOOTS));
+		as.setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
+		as.setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
+		as.setItemInHand(new ItemStack(Material.ICE));
+		
+		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short)3);
+		SkullMeta sm = (SkullMeta)skull.getItemMeta();
+		sm.setOwner(player.getName());
+		sm.setDisplayName(player.getName());
+		skull.setItemMeta(sm);
+		
+		as.setHelmet(skull);
 		
 		player.setGameMode(GameMode.SPECTATOR);
 		player.setSpectatorTarget(specEntity);
