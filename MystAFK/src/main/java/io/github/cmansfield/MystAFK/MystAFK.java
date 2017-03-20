@@ -3,7 +3,6 @@
 // TODO: Make sure permissions are working correctly
 // TODO: Make sure added player tags don't mess up previous tags
 // TODO: Use Regex to remove the player tag
-// TODO: Fix chat exception when AFK player talks
 
 
 package io.github.cmansfield.MystAFK;

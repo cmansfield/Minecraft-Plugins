@@ -26,27 +26,18 @@ public class MessageReceiverListener implements Listener {
 		
 		this.plugin = instance;
 	}
-	
-	@EventHandler (priority = EventPriority.HIGH)
-	public void eventHandler(AsyncPlayerChatEvent event) {
-		
-		if(event.isCancelled()) return;
-		
-		// If it is a server sent message then let
-		// the AFK players receive it
-		if(event.getPlayer() == null) return;
-		
-		// Get all of the players who are meant to 
-		// receive this chat message
-		Set<Player> recipients = event.getRecipients();
-		
-		for(Player player : recipients) {
-			
-			// Remove any player who is AFK from receiving
-			// that chat message
-			if(plugin.isAFK(player) && recipients.contains(player)) event.getRecipients().remove(player);
-		}
-	}
+
+//	@EventHandler (priority = EventPriority.HIGH)
+//	public void eventHandler(AsyncPlayerChatEvent event) {
+//		
+//		if(event.isCancelled()) return;
+//		
+//		// If it is a server sent message then let
+//		// the AFK players receive it
+//		if(event.getPlayer() == null) return;
+//		
+//		if(plugin.isAFK(event.getPlayer())) event.setCancelled(true);
+//	}
 	
 	@EventHandler (priority = EventPriority.HIGHEST)
 	public void eventHandler(PlayerCommandPreprocessEvent event) {
