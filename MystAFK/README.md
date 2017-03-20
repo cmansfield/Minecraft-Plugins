@@ -84,6 +84,7 @@
 <li>[x] Prevent AFK players from sending personal messages</li>
 <li>[x] Prevent personal messages to AFK players</li>
 <li>[x] Block all commands from afk players except for AFK</li>
+<li>[x] Refactor the AFKplayers into their own class</li>
 <li>[ ] Add AFK timer to the server</li>
 <li>[ ] Automatically add players to AFK if timed out</li>
 <li>[ ] Add an AFK tag to the player's NameTag</li>

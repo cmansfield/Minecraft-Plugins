@@ -7,6 +7,9 @@ commands:
     AFK:
         description: Toggles a player's AFK status
         usage: /AFK
+    clearcust:
+        description: A temp command to clear all players' custom names
+        usage: /clearcust
         
 permissions:
     mystafk.*:

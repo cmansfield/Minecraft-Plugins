@@ -14,13 +14,19 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import AFKplayers.AFKplayer;
+import AFKplayers.AFKplayers;
+import AFKplayers.IAFKplayers;
 import Listeners.MessageReceiverListener;
 import Listeners.MessageSenderListener;
 import PlayerTags.PlayerTags;
@@ -29,7 +35,7 @@ import PlayerTags.PlayerTags;
 public final class MystAFK extends JavaPlugin {
 
 	private final List<Listener> myListeners = new ArrayList<Listener>();
-	private final List<Player> afkPlayers = new ArrayList<Player>();
+	private final IAFKplayers afkPlayers = new AFKplayers();
 	
 	
     @Override
@@ -60,9 +66,9 @@ public final class MystAFK extends JavaPlugin {
     
     	// Remove all players from an AFK state
     	// before shutting down the plugin
-    	final List<Player> afkPlayersRemaining = new ArrayList<Player>();
-    	for(Player player : afkPlayers) afkPlayersRemaining.add(player);
-    	for(Player player : afkPlayersRemaining) { toggleAFK(player, false); }
+    	final IAFKplayers afkPlayersRemaining = new AFKplayers();
+    	for(AFKplayer player : afkPlayers.getPlayers()) afkPlayersRemaining.add(player);
+    	for(AFKplayer player : afkPlayersRemaining.getPlayers()) { toggleAFK(player.getPlayer(), false); }
     	
     	getLogger().info(this.getName() + " Plugin Disabled");
     }
@@ -83,6 +89,15 @@ public final class MystAFK extends JavaPlugin {
     		
     		toggleAFK((Player)sender);
     	}
+    	
+    	// Delete this, this is a temp command
+    	if(commandLabel.equalsIgnoreCase("clearcust")) {
+    		
+    		for(Player player : Bukkit.getOnlinePlayers()) {
+    			
+    			player.setCustomName(ChatColor.DARK_GREEN + "[Member]" + player.getName());
+    		}
+    	}
 
     	return true;
     }
@@ -90,8 +105,8 @@ public final class MystAFK extends JavaPlugin {
     
     public boolean isAFK(Player player) {
 
-		if(afkPlayers.contains(player)) return true;
-		
+    	if(afkPlayers.contains(player)) return true;
+  
 		return false;
     }
     
@@ -116,7 +131,9 @@ public final class MystAFK extends JavaPlugin {
 
 			//player.setInvulnerable(false);
 			//player.setGravity(true);
+			
 			//player.setGameMode(GameMode.SURVIVAL);
+			
 			//player.setCanPickupItems(true);
 			//player.setCollidable(true);
 			
@@ -132,8 +149,12 @@ public final class MystAFK extends JavaPlugin {
 
 			//player.setInvulnerable(true);
 			//player.setGravity(false);
-			//player.setSpectatorTarget(player);
+			
+			//World w = player.getWorld();
+			//Entity e = w.spawnEntity(player.getLocation(), EntityType.ARMOR_STAND);
 			//player.setGameMode(GameMode.SPECTATOR);
+			//player.setSpectatorTarget(e);
+			
 			//player.setCanPickupItems(false);
 			//player.setCollidable(false);
 			
