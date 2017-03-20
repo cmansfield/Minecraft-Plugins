@@ -3,7 +3,7 @@
 // TODO: Make sure permissions are working correctly
 // TODO: Make sure added player tags don't mess up previous tags
 // TODO: Use Regex to remove the player tag
-// TODO: Save player gamemode to be restored after AFK
+// TODO: Fix chat exception when AFK player talks
 
 
 package io.github.cmansfield.MystAFK;
@@ -66,8 +66,7 @@ public final class MystAFK extends JavaPlugin {
     
     	// Remove all players from an AFK state
     	// before shutting down the plugin
-    	final IAFKplayers afkPlayersRemaining = new AFKplayers();
-    	for(AFKplayer player : afkPlayers.getPlayers()) afkPlayersRemaining.add(player);
+    	final IAFKplayers afkPlayersRemaining = afkPlayers.copy();
     	for(AFKplayer player : afkPlayersRemaining.getPlayers()) { toggleAFK(player.getPlayer(), false); }
     	
     	getLogger().info(this.getName() + " Plugin Disabled");
@@ -129,14 +128,6 @@ public final class MystAFK extends JavaPlugin {
 			// Update the global chat message
 			msg = player.getName() + " is no longer AFK";
 
-			//player.setInvulnerable(false);
-			//player.setGravity(true);
-			
-			//player.setGameMode(GameMode.SURVIVAL);
-			
-			//player.setCanPickupItems(true);
-			//player.setCollidable(true);
-			
 			// Remove the AFK player tag
 			PlayerTags.removeTag(player, "[AFK]");
 		}
@@ -147,17 +138,6 @@ public final class MystAFK extends JavaPlugin {
 			// Update the global chat message
 			msg = player.getName() + " is now AFK";
 
-			//player.setInvulnerable(true);
-			//player.setGravity(false);
-			
-			//World w = player.getWorld();
-			//Entity e = w.spawnEntity(player.getLocation(), EntityType.ARMOR_STAND);
-			//player.setGameMode(GameMode.SPECTATOR);
-			//player.setSpectatorTarget(e);
-			
-			//player.setCanPickupItems(false);
-			//player.setCollidable(false);
-			
 			// Add AFK tag to player
 			PlayerTags.addTag(player, "[AFK]");
 		}

@@ -39,7 +39,7 @@ public class AFKplayers implements IAFKplayers {
 			
 			if(plr.getPlayer() == player) {
 				
-		    	player.setGameMode(GameMode.SURVIVAL);
+		    	player.setGameMode(plr.getGameMode());
 		    	plr.getEntity().remove();
 				
 				players.remove(plr);
@@ -50,8 +50,12 @@ public class AFKplayers implements IAFKplayers {
 
 	@Override
 	public IAFKplayers copy() {
-		// TODO Auto-generated method stub
-		return null;
+		
+    	IAFKplayers afkplrs = new AFKplayers();
+    	
+    	for(AFKplayer player : players) afkplrs.add(player);
+    	
+		return afkplrs;
 	}
 
 	@Override
