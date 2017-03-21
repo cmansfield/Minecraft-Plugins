@@ -26,6 +26,7 @@ public class AFKplayer implements IAFKplayer {
 		specEntity.setInvulnerable(true);
 		specEntity.setGravity(false);
 		specEntity.setCustomName(player.getCustomName());
+		specEntity.setCustomNameVisible(true);
 		specEntity.setVelocity(new Vector());
 		
 		ArmorStand as = (ArmorStand)specEntity;

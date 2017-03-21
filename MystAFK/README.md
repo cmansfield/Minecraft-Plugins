@@ -89,7 +89,7 @@
 <li>[x] Remove players from the AFK list when they log-off
 <li>[ ] Add AFK timer to the server</li>
 <li>[ ] Automatically add players to AFK if timed out</li>
-<li>[ ] Add an AFK tag to the player's NameTag</li>
+<li>[x] Add an AFK tag to the player's NameTag</li>
 <li>[x] Prevent World interaction with player</li>
 <li>[x] Prevent Player interaction with world</li>
 <li>[x] Prevent Player interaction with player</li>
@@ -99,5 +99,6 @@
 <li>[x] Permissions</li>
 <li>[ ] message.yml</li>
 <li>[ ] Plugin documentation</li>
+<li>[ ] Check to see if spectator mode can be set to 3rd person</li>
 <li>[ ] Discuss adding a AFK command whitelist</li>
 </ol>
