@@ -11,13 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
@@ -28,6 +23,7 @@ import AFKplayers.AFKplayers;
 import AFKplayers.IAFKplayers;
 import Listeners.MessageReceiverListener;
 import Listeners.MessageSenderListener;
+import Listeners.PlayerClickListener;
 import Listeners.PlayerLeaveListener;
 import PlayerTags.PlayerTags;
 
@@ -47,6 +43,7 @@ public final class MystAFK extends JavaPlugin {
         myListeners.add(new MessageSenderListener(this));
         myListeners.add(new MessageReceiverListener(this));
         myListeners.add(new PlayerLeaveListener(this));
+        myListeners.add(new PlayerClickListener(this));
         
         // Register all event listeners with the 
         // Bukkit plugin manager

@@ -87,16 +87,17 @@
 <li>[x] Refactor the AFKplayers into their own class</li>
 <li>[x] Create armor stand with player's head</li>
 <li>[x] Remove players from the AFK list when they log-off
-<li>[ ] Add AFK timer to the server</li>
-<li>[ ] Automatically add players to AFK if timed out</li>
 <li>[x] Add an AFK tag to the player's NameTag</li>
 <li>[x] Prevent World interaction with player</li>
 <li>[x] Prevent Player interaction with world</li>
 <li>[x] Prevent Player interaction with player</li>
+<li>[x] Permissions</li>
+<li>[ ] Remove the ability to remove armor from armor stand</li>
+<li>[ ] Add AFK timer to the server</li>
+<li>[ ] Automatically add players to AFK if timed out</li>
 <li>[ ] In chat / scoreboard warnings that the player is about to go AFK</li>
 <li>[ ] Complete the bypassAFK permission</li>
 <li>[ ] Capcha</li>
-<li>[x] Permissions</li>
 <li>[ ] message.yml</li>
 <li>[ ] Plugin documentation</li>
 <li>[ ] Check to see if spectator mode can be set to 3rd person</li>

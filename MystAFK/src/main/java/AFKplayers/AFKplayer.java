@@ -8,6 +8,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.util.Vector;
 
@@ -35,7 +36,11 @@ public class AFKplayer implements IAFKplayer {
 		as.setBoots(new ItemStack(Material.DIAMOND_BOOTS));
 		as.setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
 		as.setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
-		as.setItemInHand(new ItemStack(Material.ICE));
+		ItemStack ice = new ItemStack(Material.ICE);
+		ItemMeta iceMeta = ice.getItemMeta();
+		iceMeta.setDisplayName("AFK");
+		ice.setItemMeta(iceMeta);
+		as.setItemInHand(ice);
 		
 		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short)3);
 		SkullMeta sm = (SkullMeta)skull.getItemMeta();
