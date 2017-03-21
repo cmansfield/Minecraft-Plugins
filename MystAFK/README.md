@@ -86,7 +86,7 @@
 <li>[x] Block all commands from afk players except for AFK</li>
 <li>[x] Refactor the AFKplayers into their own class</li>
 <li>[x] Create armor stand with player's head</li>
-<li>[ ] Remove players from the AFK list when they log-off
+<li>[x] Remove players from the AFK list when they log-off
 <li>[ ] Add AFK timer to the server</li>
 <li>[ ] Automatically add players to AFK if timed out</li>
 <li>[ ] Add an AFK tag to the player's NameTag</li>

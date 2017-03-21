@@ -28,6 +28,7 @@ import AFKplayers.AFKplayers;
 import AFKplayers.IAFKplayers;
 import Listeners.MessageReceiverListener;
 import Listeners.MessageSenderListener;
+import Listeners.PlayerLeaveListener;
 import PlayerTags.PlayerTags;
 
 
@@ -45,6 +46,7 @@ public final class MystAFK extends JavaPlugin {
         // Add each of our plugin's listeners heres
         myListeners.add(new MessageSenderListener(this));
         myListeners.add(new MessageReceiverListener(this));
+        myListeners.add(new PlayerLeaveListener(this));
         
         // Register all event listeners with the 
         // Bukkit plugin manager
@@ -109,13 +111,13 @@ public final class MystAFK extends JavaPlugin {
     }
     
     
-    private void toggleAFK(Player player) {
+    public void toggleAFK(Player player) {
     	
     	toggleAFK(player, true);
     }
     
     
-    private void toggleAFK(Player player, boolean broadcast) {
+    public void toggleAFK(Player player, boolean broadcast) {
     	
     	String msg;
 
