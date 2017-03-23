@@ -95,6 +95,9 @@
 <li>[x] Remove the ability to remove armor from armor stand</li>
 <li>[x] Add AFK timer to the server</li>
 <li>[x] Automatically add players to AFK if timed out</li>
+<li>[x] Fix move listener
+<li>[x] Add listener for flying
+<li>[ ] Prevent players from moving AFK players with pistons
 <li>[ ] In chat / scoreboard warnings that the player is about to go AFK</li>
 <li>[ ] Complete the bypassAFK permission</li>
 <li>[ ] Capcha</li>

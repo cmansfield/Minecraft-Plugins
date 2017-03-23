@@ -2,11 +2,12 @@ package Listeners;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import PlayerPlayTime.IPlayerPlayTime;
 
 
-public class PlayerMoveListener {
+public class PlayerMoveListener implements Listener {
 
 	private final IPlayerPlayTime timeHandler;
 	

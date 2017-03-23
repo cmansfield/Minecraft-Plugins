@@ -26,6 +26,7 @@ import Listeners.MessageSenderListener;
 import Listeners.PlayerClickListener;
 import Listeners.PlayerJoinListener;
 import Listeners.PlayerLeaveListener;
+import Listeners.PlayerMoveListener;
 import PlayerPlayTime.IPlayerPlayTime;
 import PlayerPlayTime.PlayerPlayTime;
 import PlayerTags.PlayerTags;
@@ -52,6 +53,7 @@ public final class MystAFK extends JavaPlugin {
         myListeners.add(new PlayerLeaveListener(this));
         myListeners.add(new PlayerClickListener(this));
         myListeners.add(new PlayerJoinListener(playerTimer));
+        myListeners.add(new PlayerMoveListener(playerTimer));
         
         // Register all event listeners with the 
         // Bukkit plugin manager
