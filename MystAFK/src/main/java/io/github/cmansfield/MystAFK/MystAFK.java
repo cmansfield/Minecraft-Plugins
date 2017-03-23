@@ -24,7 +24,10 @@ import AFKplayers.IAFKplayers;
 import Listeners.MessageReceiverListener;
 import Listeners.MessageSenderListener;
 import Listeners.PlayerClickListener;
+import Listeners.PlayerJoinListener;
 import Listeners.PlayerLeaveListener;
+import PlayerPlayTime.IPlayerPlayTime;
+import PlayerPlayTime.PlayerPlayTime;
 import PlayerTags.PlayerTags;
 
 
@@ -32,6 +35,8 @@ public final class MystAFK extends JavaPlugin {
 
 	private final List<Listener> myListeners = new ArrayList<Listener>();
 	private final IAFKplayers afkPlayers = new AFKplayers();
+	private IPlayerPlayTime playerTimer;
+	private final int TICKS_PER_SEC = 20;
 	
 	
     @Override
@@ -39,11 +44,14 @@ public final class MystAFK extends JavaPlugin {
 
         PluginManager pm = getServer().getPluginManager();
         
+        playerTimer = new PlayerPlayTime(this);
+        
         // Add each of our plugin's listeners heres
         myListeners.add(new MessageSenderListener(this));
         myListeners.add(new MessageReceiverListener(this));
         myListeners.add(new PlayerLeaveListener(this));
         myListeners.add(new PlayerClickListener(this));
+        myListeners.add(new PlayerJoinListener(playerTimer));
         
         // Register all event listeners with the 
         // Bukkit plugin manager
@@ -54,6 +62,14 @@ public final class MystAFK extends JavaPlugin {
 
         // Register our plugin's commands
         getCommand("afk").setExecutor(this);
+       
+        Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+        	
+        	public void run() {
+        		
+        		playerTimer.addSecondToAllPlayersTimer();
+        	}
+        }, TICKS_PER_SEC, TICKS_PER_SEC);
 
         getLogger().info(this.getName() + " Plugin Enabled");
     }
@@ -118,10 +134,20 @@ public final class MystAFK extends JavaPlugin {
     	
     	String msg;
 
+    	
+    	if(!player.isOnline()) {
+    		
+    		afkPlayers.remove(player);
+    		playerTimer.removePlayer(player);
+    		
+    		return;
+    	}
+    	
 		// Toggle whether AFK is enabled or not
 		if(isAFK(player)) {
 
 			afkPlayers.remove(player);
+			playerTimer.addPlayer(player);
 	
 			// Update the global chat message
 			msg = player.getName() + " is no longer AFK";
@@ -132,6 +158,7 @@ public final class MystAFK extends JavaPlugin {
 		else {
 
 			afkPlayers.add(player);
+			playerTimer.removePlayer(player);
 
 			// Update the global chat message
 			msg = player.getName() + " is now AFK";

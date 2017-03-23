@@ -92,9 +92,9 @@
 <li>[x] Prevent Player interaction with world</li>
 <li>[x] Prevent Player interaction with player</li>
 <li>[x] Permissions</li>
-<li>[ ] Remove the ability to remove armor from armor stand</li>
-<li>[ ] Add AFK timer to the server</li>
-<li>[ ] Automatically add players to AFK if timed out</li>
+<li>[x] Remove the ability to remove armor from armor stand</li>
+<li>[x] Add AFK timer to the server</li>
+<li>[x] Automatically add players to AFK if timed out</li>
 <li>[ ] In chat / scoreboard warnings that the player is about to go AFK</li>
 <li>[ ] Complete the bypassAFK permission</li>
 <li>[ ] Capcha</li>
