@@ -52,6 +52,10 @@ public final class MystAFK extends JavaPlugin {
 
         PluginManager pm = getServer().getPluginManager();
         
+        // Create a default config file if there isn't one
+        getConfig().options().copyDefaults(true);
+        saveConfig();
+        
         noAFKkey = (long)(Math.random() * KEY_MAX + KEY_MIN);
         playerTimer = new PlayerPlayTime(this);
         
@@ -61,7 +65,7 @@ public final class MystAFK extends JavaPlugin {
         myListeners.add(new PlayerLeaveListener(this));
         myListeners.add(new PlayerClickListener(this));
         myListeners.add(new PlayerJoinListener(playerTimer));
-        // myListeners.add(new PlayerMoveListener(playerTimer));
+        if(this.getConfig().getBoolean("MoveResetTimer", false)) { myListeners.add(new PlayerMoveListener(playerTimer)); }
         
         // Register all event listeners with the 
         // Bukkit plugin manager

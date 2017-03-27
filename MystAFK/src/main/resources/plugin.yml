@@ -19,17 +19,7 @@ permissions:
         description: Gives access to all permissions of MystAFK.
         default: op
         children:
-            mystafk.afk: true
             mystafk.bypassAFK: true
-    mystafk.*:
-        description: Gives access to all commands of MystAFK.
-        default: op
-        children:
-            mystafk.afk: true
-            mystafk.bypassAFK: true
-    mystafk.afk:
-        description: Toggles a player's AFK status
-        default:
     mystafk.bypassAFK:
         description: Makes a player exempt from the AFK checks
         default: op

@@ -14,8 +14,8 @@ import io.github.cmansfield.MystAFK.MystAFK;
 
 public class PlayerPlayTime implements IPlayerPlayTime {
 
-	private final int TIME_OUT = 20;
-	private final int SEND_PROMPT = 10;
+	private int timeOut = 3600;
+	private int sendPrompt = 3300;
 	
 	private final Map<Player, Integer> playerTimers = new HashMap<Player, Integer>();
 	private final MystAFK plugin;
@@ -25,6 +25,12 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 		
 		this.plugin = main;
 		
+		sendPrompt = this.plugin.getConfig().getInt("PromptTime", sendPrompt);
+		timeOut = this.plugin.getConfig().getInt("TimeOutTime", timeOut);
+		
+		if(sendPrompt < 0) { sendPrompt = 0; }
+		if(timeOut < 0) { timeOut = 10; }
+		
 		for(Player player : Bukkit.getOnlinePlayers()) {
 			
 			addPlayer(player);
@@ -33,6 +39,8 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 	
 	@Override
 	public void addPlayer(Player player) {
+		
+		if(player.hasPermission("mystafk.bypassAFK")) { return; }
 		
 		// Is the player already in the map?
 		if(playerTimers.get(player) != null) return;
@@ -73,11 +81,11 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 
 		    entry = iter.next();
 
-		    if(entry.getValue() == SEND_PROMPT) {
+		    if(entry.getValue() == sendPrompt) {
 		    	
 		    	plugin.sendPlayerPrompt(entry.getKey());
 		    }
-		    else if(entry.getValue() >= TIME_OUT){
+		    else if(entry.getValue() >= timeOut){
 
 		    	iter.remove();
 		    	plugin.toggleAFK(entry.getKey());

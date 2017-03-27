@@ -102,8 +102,8 @@
 <li>[x] Create a randomly generated key that only the plugin knows for /NoAFK command use</li>
 <li>[x] Send players a clickable link in chat to indicate they are not AFK</li>
 <li>[x] Reset AFK timer when the player clicks the chat link provided</li>
-<li>[ ] Complete the bypassAFK permission</li>
-<li>[ ] Capcha</li>
+<li>[x] Complete the bypassAFK permission</li>
+<li>[x] Add a config.yml file</li>
 <li>[ ] message.yml</li>
 <li>[ ] Plugin documentation</li>
 <li>[ ] Check to see if spectator mode can be set to 3rd person</li>

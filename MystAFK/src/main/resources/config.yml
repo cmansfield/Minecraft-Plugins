@@ -1,0 +1,20 @@
+#_______________________________________________________________
+#                                                               
+#                        MystAFK Config                         
+#                                                               
+#_______________________________________________________________
+
+# The format for rank changes is
+
+
+# Time in seconds until the player receives an AFK
+# prompt in chat
+PromptTime: 3300
+
+# This value is the time in seconds until a player is
+# automatically placed into an AFK state
+TimeOutTime: 3600
+
+# Boolean value. If this value is set to true then
+# player movement will reset their AFK timer
+MoveResetTimer: false
