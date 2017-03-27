@@ -97,14 +97,18 @@
 <li>[x] Automatically add players to AFK if timed out</li>
 <li>[x] Fix move listener
 <li>[x] Add listener for flying
-<li>[x] Prevent players from moving AFK players with pistons
+<li>[ ] Prevent players from moving AFK players with pistons
 <li>[x] Create a /NoAFK command that only chat click events can use</li>
 <li>[x] Create a randomly generated key that only the plugin knows for /NoAFK command use</li>
 <li>[x] Send players a clickable link in chat to indicate they are not AFK</li>
 <li>[x] Reset AFK timer when the player clicks the chat link provided</li>
 <li>[x] Complete the bypassAFK permission</li>
 <li>[x] Add a config.yml file</li>
+<li>[ ] Add sound to notify players they are about to go AFK</li>
+<li>[ ] Add and actionbar to visual show players they are about to go AFK</li>
+<li>[ ] Add config settings for sounds and actionbar</li>
 <li>[ ] message.yml</li>
+<li>[ ] auto kick a player who has been AFK for too long</li>
 <li>[ ] Plugin documentation</li>
 <li>[ ] Check to see if spectator mode can be set to 3rd person</li>
 <li>[ ] Discuss adding a AFK command whitelist</li>
