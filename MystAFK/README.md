@@ -98,7 +98,10 @@
 <li>[x] Fix move listener
 <li>[x] Add listener for flying
 <li>[x] Prevent players from moving AFK players with pistons
-<li>[ ] In chat / scoreboard warnings that the player is about to go AFK</li>
+<li>[x] Create a /NoAFK command that only chat click events can use</li>
+<li>[x] Create a randomly generated key that only the plugin knows for /NoAFK command use</li>
+<li>[x] Send players a clickable link in chat to indicate they are not AFK</li>
+<li>[x] Reset AFK timer when the player clicks the chat link provided</li>
 <li>[ ] Complete the bypassAFK permission</li>
 <li>[ ] Capcha</li>
 <li>[ ] message.yml</li>

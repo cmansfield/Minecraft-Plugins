@@ -7,6 +7,9 @@ commands:
     AFK:
         description: Toggles a player's AFK status
         usage: /AFK
+    NoAFK:
+        description: Tells the server that a player is active, not to used manually by players
+        usage: NO ACTION
     clearcust:
         description: A temp command to clear all players' custom names
         usage: /clearcust

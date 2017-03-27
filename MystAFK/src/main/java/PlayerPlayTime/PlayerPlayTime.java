@@ -14,7 +14,8 @@ import io.github.cmansfield.MystAFK.MystAFK;
 
 public class PlayerPlayTime implements IPlayerPlayTime {
 
-	private final int TIME_OUT = 10;
+	private final int TIME_OUT = 20;
+	private final int SEND_PROMPT = 10;
 	
 	private final Map<Player, Integer> playerTimers = new HashMap<Player, Integer>();
 	private final MystAFK plugin;
@@ -72,7 +73,11 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 
 		    entry = iter.next();
 
-		    if(entry.getValue() >= TIME_OUT){
+		    if(entry.getValue() == SEND_PROMPT) {
+		    	
+		    	plugin.sendPlayerPrompt(entry.getKey());
+		    }
+		    else if(entry.getValue() >= TIME_OUT){
 
 		    	iter.remove();
 		    	plugin.toggleAFK(entry.getKey());
