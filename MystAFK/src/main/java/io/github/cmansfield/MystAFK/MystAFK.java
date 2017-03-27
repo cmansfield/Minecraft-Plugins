@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_11_R1.entity.CraftPlayer;
@@ -213,7 +214,9 @@ public final class MystAFK extends JavaPlugin {
     
     public void sendPlayerPrompt(Player player) {
     	
-    	player.sendMessage(ChatColor.DARK_RED + "You've been playing for awhile, are you AFK?");
+    	player.sendMessage(ChatColor.RED + "You've been playing for awhile, are you AFK?");
+    	
+    	player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_HARP, 1, 1);
     	
         IChatBaseComponent comp = 
         		ChatSerializer.a(

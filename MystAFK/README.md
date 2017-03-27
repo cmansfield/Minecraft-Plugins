@@ -104,7 +104,7 @@
 <li>[x] Reset AFK timer when the player clicks the chat link provided</li>
 <li>[x] Complete the bypassAFK permission</li>
 <li>[x] Add a config.yml file</li>
-<li>[ ] Add sound to notify players they are about to go AFK</li>
+<li>[x] Add sound to notify players they are about to go AFK</li>
 <li>[ ] Add and actionbar to visual show players they are about to go AFK</li>
 <li>[ ] Add config settings for sounds and actionbar</li>
 <li>[ ] message.yml</li>
