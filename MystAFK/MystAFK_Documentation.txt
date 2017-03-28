@@ -1,13 +1,13 @@
 MystAFK - v0.1.0 (BETA)
-author: AirsoftingFox
+Author: AirsoftingFox
 
 MystAFK plugin is a custom plugin to meet unique AFK player needs. The 
 aim of the plugin is prevent players from using AFK machines or macros
 to reap server timed rewards. All players who have been logged onto the
-server will receive an in chat prompt asking if they are AFK, if they
+server will receive an in-chat prompt asking if they are AFK, if they
 do not respond then they will be set to AFK. AFK player cannot send 
-commands or chat, they are invinsible and cannot perform any actions
-whey they are AFK. If they are in an AFK state for too long then the
+commands or chat, they are invisible and cannot perform any actions
+whey they are AFK. If they are in an AFK state for too long, then the
 server will automatically kick the offending player. 
 
 Commands:
