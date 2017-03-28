@@ -184,10 +184,17 @@ public final class MystAFK extends JavaPlugin {
 			playerTimer.addPlayer(player);
 	
 			// Update the global chat message
-			msg = player.getName() + " is no longer AFK";
+			msg = this.getConfig().getString(
+					"messages.PlayerNoLongerAFK", 
+					player.getName() 
+					+ " is no longer AFK"
+					).replace(
+							"\\p", 
+							player.getName()
+					);
 
 			// Remove the AFK player tag
-			PlayerTags.removeTag(player, "[AFK]");
+			PlayerTags.removeTag(player, "[" + this.getConfig().getString("messages.PlayerTag", "AFK") + "]");
 		}
 		else {
 
@@ -195,10 +202,17 @@ public final class MystAFK extends JavaPlugin {
 			playerTimer.removePlayer(player);
 
 			// Update the global chat message
-			msg = player.getName() + " is now AFK";
+			msg = this.getConfig().getString(
+					"messages.PlayerIsNowAFK", 
+					player.getName() 
+					+ " is now AFK"
+					).replace(
+							"\\p", 
+							player.getName()
+					);
 
 			// Add AFK tag to player
-			PlayerTags.addTag(player, "[AFK]");
+			PlayerTags.addTag(player, "[" + this.getConfig().getString("messages.PlayerTag", "AFK") + "]");
 		}
 
 		if(broadcast) {

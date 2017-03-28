@@ -49,7 +49,7 @@ public class MessageReceiverListener implements Listener {
 		
 		if(!match.find() && plugin.isAFK(player)) {
 			
-			player.sendMessage(ChatColor.RED + "You cannot use commands while you are AFK");
+			player.sendMessage(ChatColor.RED + plugin.getConfig().getString("messages.NoCommandMsg", "You cannot use commands while you are AFK"));
 		
 			event.setCancelled(true);
 			return;
@@ -101,7 +101,7 @@ public class MessageReceiverListener implements Listener {
 				}
 				else if(plugin.isAFK(recPlayer)) {
 					
-					player.sendMessage(ChatColor.RED + "You cannot send private messages to AFK players");
+					player.sendMessage(ChatColor.RED + plugin.getConfig().getString("messages.PvtMsgErr", "You cannot send private messages to AFK players"));
 					
 					event.setCancelled(true);
 				}

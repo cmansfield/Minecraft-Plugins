@@ -22,8 +22,8 @@ messages:
     ArmorStandEditErrMsg: You cannot edit this at this time
     NoAFKkeyErrMsg: You are not permitted to use this command
     PlayerNotAFK: Good to know you're not AFK
-    PlayerNoLongerAFK: &p is no longer AFK
-    PlayerIsNowAFK: &p is now AFK
+    PlayerNoLongerAFK: \p is no longer AFK
+    PlayerIsNowAFK: \p is now AFK
     PlayerTag: AFK
     ActionBarMsg: WARNING! You are about to be set to AFK!
     ChatPrompt: You've been playing for awhile, are you AFK?

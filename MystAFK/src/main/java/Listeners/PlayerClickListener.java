@@ -30,7 +30,7 @@ public class PlayerClickListener implements Listener {
 
 		if(((ArmorStand)eClicked).getItemInHand().getItemMeta().getDisplayName().contains("AFK")) {
 
-			event.getPlayer().sendMessage(ChatColor.RED + "You cannot edit this at this time");
+			event.getPlayer().sendMessage(ChatColor.RED + plugin.getConfig().getString("messages.ArmorStandEditErrMsg", "You cannot edit this at this time"));
 			event.setCancelled(true); 
 		}
 	}
