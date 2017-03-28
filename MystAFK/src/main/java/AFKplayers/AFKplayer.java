@@ -31,7 +31,6 @@ public class AFKplayer implements IAFKplayer {
 		specEntity.setVelocity(new Vector());
 		
 		ArmorStand as = (ArmorStand)specEntity;
-		as.setCollidable(false);
 		as.setBasePlate(false);
 		as.setArms(true);
 		as.setBoots(new ItemStack(Material.DIAMOND_BOOTS));
@@ -42,6 +41,7 @@ public class AFKplayer implements IAFKplayer {
 		iceMeta.setDisplayName("AFK");
 		ice.setItemMeta(iceMeta);
 		as.setItemInHand(ice);
+		as.setCollidable(false);
 		
 		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short)3);
 		SkullMeta sm = (SkullMeta)skull.getItemMeta();

@@ -90,6 +90,11 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 		    	iter.remove();
 		    	plugin.toggleAFK(entry.getKey());
 		    }
+		    
+		    if(entry.getValue() >= sendPrompt) {
+		    	
+		    	plugin.sendPlayerActionbar(entry.getKey());
+		    }
 		}
 	}
 }

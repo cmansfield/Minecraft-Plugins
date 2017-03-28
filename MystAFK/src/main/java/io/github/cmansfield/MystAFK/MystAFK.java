@@ -212,12 +212,25 @@ public final class MystAFK extends JavaPlugin {
     }
     
     
-    public void sendPlayerPrompt(Player player) {
+    public void sendPlayerActionbar(Player player) {
     	
+    	final byte ACTIONBAR_INDENTIFIER = 2;
+    	
+    	
+	    IChatBaseComponent barmsg = ChatSerializer.a("{\"text\":\"WARNING! You are about to be set to AFK!\"}");
+	    
+	    PacketPlayOutChat bar = new PacketPlayOutChat(barmsg, ACTIONBAR_INDENTIFIER);
+	    
+	    ((CraftPlayer)player).getHandle().playerConnection.sendPacket(bar);
+    }
+    
+    
+    public void sendPlayerPrompt(Player player) {
+
     	player.sendMessage(ChatColor.RED + "You've been playing for awhile, are you AFK?");
     	
     	player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_HARP, 1, 1);
-    	
+
         IChatBaseComponent comp = 
         		ChatSerializer.a(
         					"{\"text\":\"I am not AFK\",\"color\":\"green\",\"underlined\":true,\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/noafk "
