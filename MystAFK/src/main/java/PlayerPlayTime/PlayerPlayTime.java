@@ -91,6 +91,8 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 		    	plugin.toggleAFK(entry.getKey());
 		    }
 		    
+		    // Actionbar only lasts for 1 second, we have
+		    // to send the actionbar packet every second
 		    if(entry.getValue() >= sendPrompt) {
 		    	
 		    	plugin.sendPlayerActionbar(entry.getKey());

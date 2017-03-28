@@ -106,8 +106,8 @@
 <li>[x] Add a config.yml file</li>
 <li>[x] Add sound to notify players they are about to go AFK</li>
 <li>[x] Add and actionbar to visual show players they are about to go AFK</li>
-<li>[ ] Add config settings for sounds and actionbar</li>
-<li>[ ] message.yml</li>
+<li>[ ] Add config settings for sounds</li>
+<li>[ ] Add message customization to the config.yml file</li>
 <li>[ ] auto kick a player who has been AFK for too long</li>
 <li>[ ] Plugin documentation</li>
 <li>[ ] Check to see if spectator mode can be set to 3rd person</li>

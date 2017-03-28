@@ -18,3 +18,15 @@ TimeOutTime: 3600
 # Boolean value. If this value is set to true then
 # player movement will reset their AFK timer
 MoveResetTimer: false
+messages:
+    ArmorStandEditErrMsg: You cannot edit this at this time
+    NoAFKkeyErrMsg: You are not permitted to use this command
+    PlayerNotAFK: Good to know you're not AFK
+    PlayerNoLongerAFK: &p is no longer AFK
+    PlayerIsNowAFK: &p is now AFK
+    PlayerTag: AFK
+    ActionBarMsg: WARNING! You are about to be set to AFK!
+    ChatPrompt: You've been playing for awhile, are you AFK?
+    ChatClickText: I am not AFK
+    NoCommandMsg: You cannot use commands while you are AFK
+    PvtMsgErr: You cannot send private messages to AFK players

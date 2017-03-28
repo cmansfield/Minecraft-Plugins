@@ -1,8 +1,8 @@
 
 
-// TODO: Make sure permissions are working correctly
 // TODO: Make sure added player tags don't mess up previous tags
 // TODO: Use Regex to remove the player tag
+// TODO: Remove the clearcust command
 
 
 package io.github.cmansfield.MystAFK;
@@ -125,7 +125,7 @@ public final class MystAFK extends JavaPlugin {
     		
     		if(args.length != 1 || !args[0].equalsIgnoreCase(String.valueOf(noAFKkey))) { 
     			
-    			player.sendMessage(ChatColor.RED + "You are not permitted to use this command");
+    			player.sendMessage(ChatColor.RED + this.getConfig().getString("messages.NoAFKkeyErrMsg", "You are not permitted to use this command"));
     			
     			return true;
     		}
@@ -134,7 +134,7 @@ public final class MystAFK extends JavaPlugin {
     		
     		playerTimer.resetPlayerTimer(player);
     		
-    		player.sendMessage(ChatColor.RED + "Good to know you're not AFK");
+    		player.sendMessage(ChatColor.RED + this.getConfig().getString("messages.PlayerNotAFK", "Good to know you're not AFK"));
     	}
     	
     	// Delete this, this is a temp command
@@ -217,7 +217,12 @@ public final class MystAFK extends JavaPlugin {
     	final byte ACTIONBAR_INDENTIFIER = 2;
     	
     	
-	    IChatBaseComponent barmsg = ChatSerializer.a("{\"text\":\"WARNING! You are about to be set to AFK!\"}");
+	    IChatBaseComponent barmsg = 
+	    		ChatSerializer.a(
+	    				"{\"text\":\""
+	    				+ this.getConfig().getString("messages.ActionBarMsg", "WARNING! You are about to be set to AFK!") 
+	    				+ "\"}"
+	    			);
 	    
 	    PacketPlayOutChat bar = new PacketPlayOutChat(barmsg, ACTIONBAR_INDENTIFIER);
 	    
@@ -227,13 +232,15 @@ public final class MystAFK extends JavaPlugin {
     
     public void sendPlayerPrompt(Player player) {
 
-    	player.sendMessage(ChatColor.RED + "You've been playing for awhile, are you AFK?");
+    	player.sendMessage(ChatColor.RED + this.getConfig().getString("messages.ChatPrompt", "You've been playing for awhile, are you AFK?"));
     	
     	player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_HARP, 1, 1);
 
         IChatBaseComponent comp = 
         		ChatSerializer.a(
-        					"{\"text\":\"I am not AFK\",\"color\":\"green\",\"underlined\":true,\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/noafk "
+        					"{\"text\":\"" 
+        					+ this.getConfig().getString("messages.ChatClickText", "I am not AFK")
+        					+ "\",\"color\":\"green\",\"underlined\":true,\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/noafk "
         					+ String.valueOf(noAFKkey) 
         					+ "\"}}"
         				);
