@@ -2,7 +2,6 @@
 
 // TODO: Make sure added player tags don't mess up previous tags
 // TODO: Use Regex to remove the player tag
-// TODO: Remove the clearcust command
 
 
 package io.github.cmansfield.MystAFK;
@@ -137,15 +136,6 @@ public final class MystAFK extends JavaPlugin {
     		player.sendMessage(ChatColor.RED + this.getConfig().getString("messages.PlayerNotAFK", "Good to know you're not AFK"));
     	}
     	
-    	// Delete this, this is a temp command
-    	if(commandLabel.equalsIgnoreCase("clearcust")) {
-    		
-    		for(Player player : Bukkit.getOnlinePlayers()) {
-    			
-    			player.setCustomName(ChatColor.DARK_GREEN + "[Member]" + player.getName());
-    		}
-    	}
-
     	return true;
     }
     
@@ -181,7 +171,7 @@ public final class MystAFK extends JavaPlugin {
 		if(isAFK(player)) {
 
 			afkPlayers.remove(player);
-			playerTimer.addPlayer(player);
+			playerTimer.resetPlayerTimer(player);
 	
 			// Update the global chat message
 			msg = this.getConfig().getString(
@@ -199,8 +189,7 @@ public final class MystAFK extends JavaPlugin {
 		else {
 
 			afkPlayers.add(player);
-			playerTimer.removePlayer(player);
-
+			
 			// Update the global chat message
 			msg = this.getConfig().getString(
 					"messages.PlayerIsNowAFK", 
@@ -226,7 +215,7 @@ public final class MystAFK extends JavaPlugin {
     }
     
     
-    public void sendPlayerActionbar(Player player) {
+    public void sendPlayerActionbar(Player player, String configMsg) {
     	
     	final byte ACTIONBAR_INDENTIFIER = 2;
     	
@@ -234,7 +223,7 @@ public final class MystAFK extends JavaPlugin {
 	    IChatBaseComponent barmsg = 
 	    		ChatSerializer.a(
 	    				"{\"text\":\""
-	    				+ this.getConfig().getString("messages.ActionBarMsg", "WARNING! You are about to be set to AFK!") 
+	    				+ this.getConfig().getString(configMsg, "Default actionbar message") 
 	    				+ "\"}"
 	    			);
 	    

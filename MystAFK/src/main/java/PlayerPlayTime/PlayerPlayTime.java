@@ -16,6 +16,7 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 
 	private int timeOut = 3600;
 	private int sendPrompt = 3300;
+	private int kickTimeOut = 5400;
 	
 	private final Map<Player, Integer> playerTimers = new HashMap<Player, Integer>();
 	private final MystAFK plugin;
@@ -27,6 +28,7 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 		
 		sendPrompt = this.plugin.getConfig().getInt("PromptTime", sendPrompt);
 		timeOut = this.plugin.getConfig().getInt("TimeOutTime", timeOut);
+		kickTimeOut = this.plugin.getConfig().getInt("KickTimeOut", kickTimeOut);
 		
 		if(sendPrompt < 0) { sendPrompt = 0; }
 		if(timeOut < 0) { timeOut = 10; }
@@ -62,9 +64,7 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 	@Override
 	public void resetPlayerTimer(Player player) {
 		
-		// We need to make sure there actually is a this
-		// player in the hash map before we try and edit it
-		addPlayer(player);
+		if(playerTimers.get(player) == null) return;
 		
 		playerTimers.replace(player, 0);
 	}
@@ -72,6 +72,8 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 	@Override
 	public void addSecondToAllPlayersTimer() {
 
+		final int FIVE_MIN_IN_SECONDS = 300;
+		
 		playerTimers.replaceAll((key, value) -> ++value);
 
 		Iterator<Entry<Player, Integer>> iter = playerTimers.entrySet().iterator();
@@ -81,21 +83,42 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 
 		    entry = iter.next();
 
-		    if(entry.getValue() == sendPrompt) {
+		    if(entry.getValue() >= kickTimeOut) {
 		    	
-		    	plugin.sendPlayerPrompt(entry.getKey());
-		    }
-		    else if(entry.getValue() >= timeOut){
-
+		    	Player player = entry.getKey();
+		    	
 		    	iter.remove();
-		    	plugin.toggleAFK(entry.getKey());
+		    	
+		    	if(plugin.isAFK(player)) plugin.toggleAFK(player, false);
+
+		    	player.kickPlayer("Kicked for being idle too long");
+		    	continue;
 		    }
 		    
 		    // Actionbar only lasts for 1 second, we have
 		    // to send the actionbar packet every second
+		    if(entry.getValue() > ((timeOut > FIVE_MIN_IN_SECONDS) ? kickTimeOut - FIVE_MIN_IN_SECONDS : timeOut)) {
+		   
+		    	plugin.sendPlayerActionbar(entry.getKey(), "messages.ActionBarKickmsg");
+		    }
+		    
+		    if(plugin.isAFK(entry.getKey())) continue;
+		    
+		    if(entry.getValue() == sendPrompt) {
+		    	
+		    	plugin.sendPlayerPrompt(entry.getKey());
+		    }
+		    else if(entry.getValue() == timeOut){
+
+		    	//iter.remove();
+		    	plugin.toggleAFK(entry.getKey());
+		    }
+
+		    // Actionbar only lasts for 1 second, we have
+		    // to send the actionbar packet every second
 		    if(entry.getValue() >= sendPrompt) {
 		    	
-		    	plugin.sendPlayerActionbar(entry.getKey());
+		    	plugin.sendPlayerActionbar(entry.getKey(), "messages.ActionBarAFKmsg");
 		    }
 		}
 	}

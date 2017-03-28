@@ -1,0 +1,43 @@
+MystAFK - v0.1.0 (BETA)
+author: AirsoftingFox
+
+MystAFK plugin is a custom plugin to meet unique AFK player needs. The 
+aim of the plugin is prevent players from using AFK machines or macros
+to reap server timed rewards. All players who have been logged onto the
+server will receive an in chat prompt asking if they are AFK, if they
+do not respond then they will be set to AFK. AFK player cannot send 
+commands or chat, they are invinsible and cannot perform any actions
+whey they are AFK. If they are in an AFK state for too long then the
+server will automatically kick the offending player. 
+
+Commands:
+	/afk
+		Toggles a player's AFK status
+	/NoAFK
+		Only used by the chat click event, a randomized key
+		is used to prevent players from using this command
+
+Permissions:
+	MystAFK.bypassAFK
+		This permission is typically used by admins and staff.
+		Give this permission to any player you don't want to
+		be placed into AFK after a given amount of time.
+
+config.yml:
+	PromptTime
+		This value indicates the number of seconds after a player 
+		has logged on before they receive the "Are you AFK?" chat
+		prompt.
+	TimeOutTime
+		This value is the number of seconds after a player has
+		logged into until they will automatically be placed into 
+		an AFK state. If the player interacts with the chat prompt
+		before then, their timer will be reset.
+	KickTimeOut
+		This value is the number of seconds before a player is 
+		automatically kicked from the server if they do not
+		indicate that they are not AFK. 
+	MoveResetTimer
+		This is a true / false value. When set to true a player's
+		movement resets their AFK timer. This will prevent the
+		plugin from catching players using AFK macros

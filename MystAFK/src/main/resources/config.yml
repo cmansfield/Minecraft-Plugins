@@ -15,6 +15,9 @@ PromptTime: 3300
 # automatically placed into an AFK state
 TimeOutTime: 3600
 
+# Default kick time is 1 1/2 hours
+KickTimeOut: 5400
+
 # Boolean value. If this value is set to true then
 # player movement will reset their AFK timer
 MoveResetTimer: false
@@ -25,7 +28,8 @@ messages:
     PlayerNoLongerAFK: \p is no longer AFK
     PlayerIsNowAFK: \p is now AFK
     PlayerTag: AFK
-    ActionBarMsg: WARNING! You are about to be set to AFK!
+    ActionBarAFKmsg: WARNING! You are about to be set to AFK!
+    ActionBarKickmsg: WARNING! You've been idle for too long, and you will be kicked!
     ChatPrompt: You've been playing for awhile, are you AFK?
     ChatClickText: I am not AFK
     NoCommandMsg: You cannot use commands while you are AFK
