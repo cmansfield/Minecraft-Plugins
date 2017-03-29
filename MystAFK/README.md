@@ -109,6 +109,11 @@
 <li>[x] auto kick a player who has been AFK for too long</li>
 <li>[x] Plugin documentation</li>
 <li>[x] Prevent AFK players from using the AFK teleport commands</li>
+<li>[ ] Be able to specify the number of actionbar warnings</li>
+<li>[ ] Actionbar messages also print the number of minutes until action</li>
+<li>[ ] Change sound from world sound to personal sound</li>
+<li>[ ] Actionbar message telling AFK players they are AFK</li>
+<li>[ ] Add a list of commands in config.yml when a player is kicked</li>
 <li>[ ] Prevent players from moving AFK players with pistons
 <li>[ ] Add config settings for sounds</li>
 <li>[ ] Check to see if spectator mode can be set to 3rd person</li>
