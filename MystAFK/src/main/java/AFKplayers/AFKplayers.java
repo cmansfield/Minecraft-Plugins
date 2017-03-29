@@ -63,4 +63,17 @@ public class AFKplayers implements IAFKplayers {
 
 	@Override
 	public void add(AFKplayer player) { players.add(player); }
+
+	@Override
+	public void reattachPlayerToEntity(Player player) {
+		
+		for(AFKplayer plr : players) {
+			
+			if(plr.getPlayer() == player) {
+				
+		    	player.setSpectatorTarget(plr.getEntity());
+				return;
+			}
+		}
+	}
 }

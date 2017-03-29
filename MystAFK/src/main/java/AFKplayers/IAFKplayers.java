@@ -12,4 +12,5 @@ public abstract interface IAFKplayers {
 	public abstract void remove(Player player);
 	public abstract IAFKplayers copy();
 	public abstract List<AFKplayer> getPlayers();
+	public abstract void reattachPlayerToEntity(Player player);
 }

@@ -1,6 +1,6 @@
 name: MystAFK
 main: io.github.cmansfield.MystAFK.MystAFK
-version: 0.1.0
+version: 0.1.1
 author: AirsoftingFox
 description: A custom AFK plugin for http://mystserver.enjin.com/
 commands:
