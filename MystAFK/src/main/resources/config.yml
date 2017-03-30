@@ -21,6 +21,7 @@ KickTimeOut: 5400
 # Boolean value. If this value is set to true then
 # player movement will reset their AFK timer
 MoveResetTimer: false
+KickCommands: 
 messages:
     ArmorStandEditErrMsg: You cannot edit this at this time
     NoAFKkeyErrMsg: You are not permitted to use this command
@@ -30,6 +31,7 @@ messages:
     PlayerTag: AFK
     ActionBarAFKmsg: WARNING! You will be set to AFK in \s seconds!
     ActionBarKickmsg: WARNING! You've been idle for too long, you will be kicked in \s seconds!
+    ActionBarYouAreAFK: You have been AFK for \s seconds
     ChatPrompt: You've been playing for awhile, are you AFK?
     ChatClickText: I am not AFK
     NoCommandMsg: You cannot use commands while you are AFK

@@ -57,6 +57,7 @@ Message Formatting:
 			Works with the following config.yml messages:
 				ActionBarAFKmsg
 				ActionBarKickmsg
+				ActionBarYouAreAFK
 				ChatPrompt
 				
 		\p

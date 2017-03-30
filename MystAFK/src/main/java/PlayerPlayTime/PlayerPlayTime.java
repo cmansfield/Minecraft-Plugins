@@ -78,6 +78,7 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 
     	final IConfigMessage configMsgKick = new ConfigMessage(plugin, "messages.ActionBarKickmsg");
     	final IConfigMessage configMsgAFK = new ConfigMessage(plugin, "messages.ActionBarAFKmsg");
+    	final IConfigMessage configMsgYouAreAFK = new ConfigMessage(plugin, "messages.ActionBarYouAreAFK");
 		final int FIVE_MIN_IN_SECONDS = 300;
     	
 		
@@ -104,7 +105,7 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 		    
 		    // Actionbar only lasts for 1 second, we have
 		    // to send the actionbar packet every second
-		    if(entry.getValue() > ((timeOut > FIVE_MIN_IN_SECONDS) ? kickTimeOut - FIVE_MIN_IN_SECONDS : timeOut)) {
+		    if(entry.getValue() > (kickTimeOut - FIVE_MIN_IN_SECONDS) && entry.getValue() > timeOut) {
 		   
 		    	plugin.sendPlayerActionbar(entry.getKey(), 
 	    			new TimeSecondsDecorator(
@@ -113,6 +114,18 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 	    					entry.getKey().getName()
 		    			), 
 	    				kickTimeOut - entry.getValue()
+	    			)
+	    		);
+		    }
+		    else if(entry.getValue() >= timeOut) {
+		    	
+		    	plugin.sendPlayerActionbar(entry.getKey(), 
+	    			new TimeSecondsDecorator(
+	    				new PlayerNameDecorator(
+	    						configMsgYouAreAFK, 
+	    					entry.getKey().getName()
+		    			), 
+	    				entry.getValue() - timeOut
 	    			)
 	    		);
 		    }

@@ -249,8 +249,6 @@ public final class MystAFK extends JavaPlugin {
     	
     	player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_HARP, 1, 1);
 
-
-    	
         IChatBaseComponent comp = 
 			ChatSerializer.a(
 				"{\"text\":\"" 
