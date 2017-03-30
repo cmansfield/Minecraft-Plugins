@@ -1,4 +1,4 @@
-MystAFK - v0.1.0 (BETA)
+MystAFK - v0.1.2 (BETA)
 Author: AirsoftingFox
 
 MystAFK plugin is a custom plugin to meet unique AFK player needs. The 
@@ -41,3 +41,28 @@ config.yml:
 		This is a true / false value. When set to true a player's
 		movement resets their AFK timer. This will prevent the
 		plugin from catching players using AFK macros
+
+Message Formatting:
+	Messages within the config.yml file can be formatted to
+	include some runtime information, such as a player's name
+	or the amount of time remaining before a action happens.
+	Most of the formatters use a '\' just before the placeholder
+	to determine their use. Example: Welcome \p!
+	
+		\s
+			This place holder is used within messages to indicate
+			the number of seconds remaining until the action to 
+			perform. 
+			
+			Works with the following config.yml messages:
+				ActionBarAFKmsg
+				ActionBarKickmsg
+				ChatPrompt
+				
+		\p
+			This place holder is used within messages to indicate
+			the player's name within a message. This will always
+			be the name of the player who is performing the action
+			
+			Works with the following config.yml messages:
+				All config messages execpt for PlayerTag

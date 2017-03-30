@@ -22,6 +22,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import AFKplayers.AFKplayer;
 import AFKplayers.AFKplayers;
 import AFKplayers.IAFKplayers;
+import Config.ConfigMessage;
+import Config.IConfigMessage;
+import Config.PlayerNameDecorator;
+import Config.TimeSecondsDecorator;
 import Listeners.MessageReceiverListener;
 import Listeners.MessageSenderListener;
 import Listeners.PlayerClickListener;
@@ -126,7 +130,13 @@ public final class MystAFK extends JavaPlugin {
     		
     		if(args.length != 1 || !args[0].equalsIgnoreCase(String.valueOf(noAFKkey))) { 
     			
-    			player.sendMessage(ChatColor.RED + this.getConfig().getString("messages.NoAFKkeyErrMsg", "You are not permitted to use this command"));
+    			player.sendMessage(
+					ChatColor.RED 
+					+ (new PlayerNameDecorator(
+						new ConfigMessage(this, "messages.NoAFKkeyErrMsg"), 
+						player.getName()
+					)).getMessage()
+				);
     			
     			return true;
     		}
@@ -135,7 +145,13 @@ public final class MystAFK extends JavaPlugin {
     		
     		playerTimer.resetPlayerTimer(player);
     		
-    		player.sendMessage(ChatColor.RED + this.getConfig().getString("messages.PlayerNotAFK", "Good to know you're not AFK"));
+			player.sendMessage(
+				ChatColor.RED 
+				+ (new PlayerNameDecorator(
+					new ConfigMessage(this, "messages.PlayerNotAFK"), 
+					player.getName()
+				)).getMessage()
+			);
     	}
     	
     	return true;
@@ -176,14 +192,10 @@ public final class MystAFK extends JavaPlugin {
 			playerTimer.resetPlayerTimer(player);
 	
 			// Update the global chat message
-			msg = this.getConfig().getString(
-					"messages.PlayerNoLongerAFK", 
-					player.getName() 
-					+ " is no longer AFK"
-					).replace(
-							"\\p", 
-							player.getName()
-					);
+			msg = (new PlayerNameDecorator(
+					new ConfigMessage(this, "messages.PlayerNoLongerAFK"), 
+					player.getName()
+				)).getMessage();
 
 			// Remove the AFK player tag
 			PlayerTags.removeTag(player, "[" + this.getConfig().getString("messages.PlayerTag", "AFK") + "]");
@@ -193,14 +205,10 @@ public final class MystAFK extends JavaPlugin {
 			afkPlayers.add(player);
 			
 			// Update the global chat message
-			msg = this.getConfig().getString(
-					"messages.PlayerIsNowAFK", 
-					player.getName() 
-					+ " is now AFK"
-					).replace(
-							"\\p", 
-							player.getName()
-					);
+			msg = (new PlayerNameDecorator(
+					new ConfigMessage(this, "messages.PlayerIsNowAFK"), 
+					player.getName()
+				)).getMessage();
 
 			// Add AFK tag to player
 			PlayerTags.addTag(player, "[" + this.getConfig().getString("messages.PlayerTag", "AFK") + "]");
@@ -217,17 +225,17 @@ public final class MystAFK extends JavaPlugin {
     }
     
     
-    public void sendPlayerActionbar(Player player, String configMsg) {
+    public void sendPlayerActionbar(Player player, IConfigMessage configMsg) {
     	
     	final byte ACTIONBAR_INDENTIFIER = 2;
-    	
-    	
+
+    			
 	    IChatBaseComponent barmsg = 
-	    		ChatSerializer.a(
-	    				"{\"text\":\""
-	    				+ this.getConfig().getString(configMsg, "Default actionbar message") 
-	    				+ "\"}"
-	    			);
+			ChatSerializer.a(
+				"{\"text\":\""
+				+ configMsg.getMessage()
+				+ "\"}"
+			);
 	    
 	    PacketPlayOutChat bar = new PacketPlayOutChat(barmsg, ACTIONBAR_INDENTIFIER);
 	    
@@ -241,14 +249,19 @@ public final class MystAFK extends JavaPlugin {
     	
     	player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_HARP, 1, 1);
 
+
+    	
         IChatBaseComponent comp = 
-        		ChatSerializer.a(
-        					"{\"text\":\"" 
-        					+ this.getConfig().getString("messages.ChatClickText", "I am not AFK")
-        					+ "\",\"color\":\"green\",\"underlined\":true,\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/noafk "
-        					+ String.valueOf(noAFKkey) 
-        					+ "\"}}"
-        				);
+			ChatSerializer.a(
+				"{\"text\":\"" 
+				+ (new PlayerNameDecorator(
+						new ConfigMessage(this, "messages.ChatClickText"), 
+						player.getName()
+					)).getMessage()
+				+ "\",\"color\":\"green\",\"underlined\":true,\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/noafk "
+				+ String.valueOf(noAFKkey) 
+				+ "\"}}"
+			);
         PacketPlayOutChat packet = new PacketPlayOutChat(comp);
         ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
 	}

@@ -15,6 +15,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+
+import Config.ConfigMessage;
+import Config.PlayerNameDecorator;
 import io.github.cmansfield.MystAFK.MystAFK;
 
 
@@ -49,8 +52,14 @@ public class MessageReceiverListener implements Listener {
 		
 		if(!match.find() && plugin.isAFK(player)) {
 			
-			player.sendMessage(ChatColor.RED + plugin.getConfig().getString("messages.NoCommandMsg", "You cannot use commands while you are AFK"));
-		
+			player.sendMessage(
+				ChatColor.RED 
+				+ (new PlayerNameDecorator(
+					new ConfigMessage(plugin, "messages.NoCommandMsg"), 
+					player.getName()
+				)).getMessage()
+			);
+
 			event.setCancelled(true);
 			return;
 		}
@@ -101,8 +110,14 @@ public class MessageReceiverListener implements Listener {
 				}
 				else if(plugin.isAFK(recPlayer)) {
 					
-					player.sendMessage(ChatColor.RED + plugin.getConfig().getString("messages.PvtMsgErr", "You cannot send private messages to AFK players"));
-					
+					player.sendMessage(
+						ChatColor.RED 
+						+ (new PlayerNameDecorator(
+							new ConfigMessage(plugin, "messages.PvtMsgErr"), 
+							player.getName()
+						)).getMessage()
+					);
+
 					event.setCancelled(true);
 				}
 				

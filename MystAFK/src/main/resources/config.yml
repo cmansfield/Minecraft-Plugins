@@ -28,8 +28,8 @@ messages:
     PlayerNoLongerAFK: \p is no longer AFK
     PlayerIsNowAFK: \p is now AFK
     PlayerTag: AFK
-    ActionBarAFKmsg: WARNING! You are about to be set to AFK!
-    ActionBarKickmsg: WARNING! You've been idle for too long, and you will be kicked!
+    ActionBarAFKmsg: WARNING! You will be set to AFK in \s seconds!
+    ActionBarKickmsg: WARNING! You've been idle for too long, you will be kicked in \s seconds!
     ChatPrompt: You've been playing for awhile, are you AFK?
     ChatClickText: I am not AFK
     NoCommandMsg: You cannot use commands while you are AFK

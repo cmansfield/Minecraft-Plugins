@@ -8,6 +8,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+
+import Config.ConfigMessage;
+import Config.IConfigMessage;
+import Config.PlayerNameDecorator;
 import io.github.cmansfield.MystAFK.MystAFK;
 
 
@@ -30,7 +34,16 @@ public class PlayerClickListener implements Listener {
 
 		if(((ArmorStand)eClicked).getItemInHand().getItemMeta().getDisplayName().contains("AFK")) {
 
-			event.getPlayer().sendMessage(ChatColor.RED + plugin.getConfig().getString("messages.ArmorStandEditErrMsg", "You cannot edit this at this time"));
+			event.getPlayer().sendMessage(ChatColor.RED 
+				+ (new PlayerNameDecorator(
+					new ConfigMessage(
+						plugin, 
+						"messages.ArmorStandEditErrMsg"
+					), 
+					event.getPlayer().getName())
+				).getMessage()
+			);
+			
 			event.setCancelled(true); 
 		}
 	}

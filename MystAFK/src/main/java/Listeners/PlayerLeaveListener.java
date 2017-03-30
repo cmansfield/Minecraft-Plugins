@@ -21,7 +21,7 @@ public class PlayerLeaveListener implements Listener {
 	public void eventHandler(PlayerQuitEvent event) {
 		
 		if(event == null) return;
-		
+
 		Player player = event.getPlayer();
 		
 		if(player == null) return;

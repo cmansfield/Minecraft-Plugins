@@ -9,6 +9,10 @@ import java.util.Map.Entry;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import Config.ConfigMessage;
+import Config.IConfigMessage;
+import Config.PlayerNameDecorator;
+import Config.TimeSecondsDecorator;
 import io.github.cmansfield.MystAFK.MystAFK;
 
 
@@ -72,7 +76,10 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 	@Override
 	public void addSecondToAllPlayersTimer() {
 
+    	final IConfigMessage configMsgKick = new ConfigMessage(plugin, "messages.ActionBarKickmsg");
+    	final IConfigMessage configMsgAFK = new ConfigMessage(plugin, "messages.ActionBarAFKmsg");
 		final int FIVE_MIN_IN_SECONDS = 300;
+    	
 		
 		playerTimers.replaceAll((key, value) -> ++value);
 
@@ -99,7 +106,15 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 		    // to send the actionbar packet every second
 		    if(entry.getValue() > ((timeOut > FIVE_MIN_IN_SECONDS) ? kickTimeOut - FIVE_MIN_IN_SECONDS : timeOut)) {
 		   
-		    	plugin.sendPlayerActionbar(entry.getKey(), "messages.ActionBarKickmsg");
+		    	plugin.sendPlayerActionbar(entry.getKey(), 
+	    			new TimeSecondsDecorator(
+	    				new PlayerNameDecorator(
+	    					configMsgKick, 
+	    					entry.getKey().getName()
+		    			), 
+	    				kickTimeOut - entry.getValue()
+	    			)
+	    		);
 		    }
 		    
 		    if(plugin.isAFK(entry.getKey())) continue;
@@ -118,7 +133,17 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 		    // to send the actionbar packet every second
 		    if(entry.getValue() >= sendPrompt) {
 		    	
-		    	plugin.sendPlayerActionbar(entry.getKey(), "messages.ActionBarAFKmsg");
+		    	plugin.sendPlayerActionbar(entry.getKey(), configMsgAFK);
+		    
+		    	plugin.sendPlayerActionbar(entry.getKey(), 
+	    			new TimeSecondsDecorator(
+	    				new PlayerNameDecorator(
+	    					configMsgAFK, 
+	    					entry.getKey().getName()
+		    			), 
+	    				timeOut - entry.getValue()
+	    			)
+		    	);
 		    }
 		}
 	}
