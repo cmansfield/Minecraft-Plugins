@@ -84,6 +84,7 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 		
 		playerTimers.replaceAll((key, value) -> ++value);
 
+
 		Iterator<Entry<Player, Integer>> iter = playerTimers.entrySet().iterator();
 		Entry<Player, Integer> entry;
 
@@ -91,73 +92,93 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 
 		    entry = iter.next();
 
-		    if(entry.getValue() >= kickTimeOut) {
-		    	
-		    	Player player = entry.getKey();
-		    	
-		    	iter.remove();
-		    	
-		    	if(plugin.isAFK(player)) plugin.toggleAFK(player, false);
-
-		    	player.kickPlayer("Kicked for being idle too long");
-		    	continue;
-		    }
-		    
-		    // Actionbar only lasts for 1 second, we have
-		    // to send the actionbar packet every second
-		    if(entry.getValue() > (kickTimeOut - FIVE_MIN_IN_SECONDS) && entry.getValue() > timeOut) {
-		   
-		    	plugin.sendPlayerActionbar(entry.getKey(), 
-	    			new TimeSecondsDecorator(
-	    				new PlayerNameDecorator(
-	    					configMsgKick, 
-	    					entry.getKey().getName()
-		    			), 
-	    				kickTimeOut - entry.getValue()
-	    			)
-	    		);
-		    }
-		    else if(entry.getValue() >= timeOut) {
-		    	
-		    	plugin.sendPlayerActionbar(entry.getKey(), 
-	    			new TimeSecondsDecorator(
-	    				new PlayerNameDecorator(
-	    						configMsgYouAreAFK, 
-	    					entry.getKey().getName()
-		    			), 
-	    				entry.getValue() - timeOut
-	    			)
-	    		);
-		    }
-		    
-		    if(plugin.isAFK(entry.getKey())) continue;
-		    
-		    if(entry.getValue() == sendPrompt) {
-		    	
-		    	plugin.sendPlayerPrompt(entry.getKey());
-		    }
-		    else if(entry.getValue() == timeOut){
-
-		    	//iter.remove();
-		    	plugin.toggleAFK(entry.getKey());
-		    }
-
-		    // Actionbar only lasts for 1 second, we have
-		    // to send the actionbar packet every second
-		    if(entry.getValue() >= sendPrompt) {
-		    	
-		    	plugin.sendPlayerActionbar(entry.getKey(), configMsgAFK);
-		    
-		    	plugin.sendPlayerActionbar(entry.getKey(), 
-	    			new TimeSecondsDecorator(
-	    				new PlayerNameDecorator(
-	    					configMsgAFK, 
-	    					entry.getKey().getName()
-		    			), 
-	    				timeOut - entry.getValue()
-	    			)
-		    	);
-		    }
+			try {
+			    if(entry.getValue() >= kickTimeOut) {
+			    	
+			    	Player player = entry.getKey();
+			    	
+			    	// The iter.remove was moved into thread safe code
+			    	//iter.remove();
+			    	
+			    	if(plugin.isAFK(player)) plugin.toggleAFK(player, false);
+	
+			    	player.kickPlayer("Kicked for being idle too long");
+			    	continue;
+			    }
+			    
+			    // Actionbar only lasts for 1 second, we have
+			    // to send the actionbar packet every second
+			    if(entry.getValue() > (kickTimeOut - FIVE_MIN_IN_SECONDS) && entry.getValue() > timeOut) {
+			   
+			    	plugin.sendPlayerActionbar(entry.getKey(), 
+		    			new TimeSecondsDecorator(
+		    				new PlayerNameDecorator(
+		    					configMsgKick, 
+		    					entry.getKey().getName()
+			    			), 
+		    				kickTimeOut - entry.getValue()
+		    			)
+		    		);
+			    }
+			    else if(entry.getValue() >= timeOut) {
+			    	
+			    	plugin.sendPlayerActionbar(entry.getKey(), 
+		    			new TimeSecondsDecorator(
+		    				new PlayerNameDecorator(
+		    						configMsgYouAreAFK, 
+		    					entry.getKey().getName()
+			    			), 
+		    				entry.getValue() - timeOut
+		    			)
+		    		);
+			    }
+			    
+			    if(plugin.isAFK(entry.getKey())) continue;
+			    
+			    if(entry.getValue() == sendPrompt) {
+			    	
+			    	plugin.sendPlayerPrompt(entry.getKey());
+			    }
+			    else if(entry.getValue() == timeOut){
+	
+			    	//iter.remove();
+			    	plugin.toggleAFK(entry.getKey());
+			    }
+	
+			    // Actionbar only lasts for 1 second, we have
+			    // to send the actionbar packet every second
+			    if(entry.getValue() >= sendPrompt) {
+			    	
+			    	plugin.sendPlayerActionbar(entry.getKey(), configMsgAFK);
+			    
+			    	plugin.sendPlayerActionbar(entry.getKey(), 
+		    			new TimeSecondsDecorator(
+		    				new PlayerNameDecorator(
+		    					configMsgAFK, 
+		    					entry.getKey().getName()
+			    			), 
+		    				timeOut - entry.getValue()
+		    			)
+			    	);
+			    }
+			}
+			catch(Exception err) { 
+				
+				plugin.getLogger().info("Concurency Exception Found");
+				continue; 
+			}
+		}
+		
+		// Added this for thread safety
+		synchronized(this) {
+			iter = playerTimers.entrySet().iterator();
+			
+			while(iter.hasNext()) {
+				
+				entry = iter.next();
+				
+				if(!entry.getKey().isOnline()) { iter.remove(); }
+			}
 		}
 	}
 }
