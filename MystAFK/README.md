@@ -113,7 +113,7 @@
 <li>[x] Actionbar messages also print the number of minutes until action</li>
 <li>[x] Actionbar message telling AFK players they are AFK</li>
 <li>[x] Update Documentation</li>
-<li>[ ] Add a list of commands in config.yml when a player is kicked</li>
+<li>[x] Add a list of commands in config.yml when a player is kicked</li>
 <li>[ ] Prevent players from moving AFK players with pistons</li>
 <li>[ ] Add config settings for sounds</li>
 <li>[ ] Discuss adding a AFK command whitelist</li>

@@ -23,9 +23,9 @@ import AFKplayers.AFKplayer;
 import AFKplayers.AFKplayers;
 import AFKplayers.IAFKplayers;
 import Config.ConfigMessage;
+import Config.ConfigMessageRaw;
 import Config.IConfigMessage;
 import Config.PlayerNameDecorator;
-import Config.TimeSecondsDecorator;
 import Listeners.MessageReceiverListener;
 import Listeners.MessageSenderListener;
 import Listeners.PlayerClickListener;
@@ -49,6 +49,7 @@ public final class MystAFK extends JavaPlugin {
 	private final long KEY_MIN = 100000000000000L;
 	private IPlayerPlayTime playerTimer;
 	private final int TICKS_PER_SEC = 20;
+	private List<String> kickCommands;
 	private long noAFKkey;
 	
 	
@@ -56,6 +57,7 @@ public final class MystAFK extends JavaPlugin {
     public void onEnable() {
 
         PluginManager pm = getServer().getPluginManager();
+        kickCommands = getConfig().getStringList("KickCommands");
         
         // Create a default config file if there isn't one
         getConfig().options().copyDefaults(true);
@@ -263,4 +265,19 @@ public final class MystAFK extends JavaPlugin {
         PacketPlayOutChat packet = new PacketPlayOutChat(comp);
         ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
 	}
+    
+    
+    public void executeKickCommands(Player player) {
+    	
+    	for(String cmd : kickCommands) {
+
+    		Bukkit.dispatchCommand(
+				Bukkit.getServer().getConsoleSender(), 
+				(new PlayerNameDecorator(
+					new ConfigMessageRaw(this, cmd), 
+					player.getName()
+				)).getMessage()
+			);
+    	}
+    }
 }

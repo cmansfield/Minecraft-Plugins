@@ -22,6 +22,9 @@ KickTimeOut: 5400
 # player movement will reset their AFK timer
 MoveResetTimer: false
 KickCommands: 
+    - time set day
+    - say \p was kicked for being AFK
+    - test command 3
 messages:
     ArmorStandEditErrMsg: You cannot edit this at this time
     NoAFKkeyErrMsg: You are not permitted to use this command

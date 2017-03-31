@@ -102,6 +102,8 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 			    	
 			    	if(plugin.isAFK(player)) plugin.toggleAFK(player, false);
 	
+			    	plugin.executeKickCommands(player);
+			    	
 			    	player.kickPlayer("Kicked for being idle too long");
 			    	continue;
 			    }

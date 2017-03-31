@@ -41,14 +41,19 @@ config.yml:
 		This is a true / false value. When set to true a player's
 		movement resets their AFK timer. This will prevent the
 		plugin from catching players using AFK macros
-
+	KickCommands
+		This is a list of commands that will be executed just
+		before an AFK player is kicked from the server. Do not
+		include '/' used in MC chat, these are server commands.
+		Allows the \p to include the kicked player in server 
+		commands.
+		
 Message Formatting:
 	Messages within the config.yml file can be formatted to
 	include some runtime information, such as a player's name
 	or the amount of time remaining before a action happens.
 	Most of the formatters use a '\' just before the placeholder
 	to determine their use. Example: Welcome \p!
-	
 		\s
 			This place holder is used within messages to indicate
 			the number of seconds remaining until the action to 
@@ -58,8 +63,7 @@ Message Formatting:
 				ActionBarAFKmsg
 				ActionBarKickmsg
 				ActionBarYouAreAFK
-				ChatPrompt
-				
+				ChatPrompt	
 		\p
 			This place holder is used within messages to indicate
 			the player's name within a message. This will always
