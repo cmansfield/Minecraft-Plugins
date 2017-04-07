@@ -114,10 +114,7 @@
 <li>[x] Actionbar message telling AFK players they are AFK</li>
 <li>[x] Update Documentation</li>
 <li>[x] Add a list of commands in config.yml when a player is kicked</li>
+<li>[ ] When a player is no longer AFk move them to a safe location</li>
 <li>[ ] Prevent players from moving AFK players with pistons</li>
 <li>[ ] Add config settings for sounds</li>
-<li>[ ] Discuss adding a AFK command whitelist</li>
-<li>[-] Change sound from world sound to personal sound</li>
-<li>[-] Be able to specify the number of actionbar warnings</li>
-<li>[-] Check to see if spectator mode can be set to 3rd person</li>
 </ol>
