@@ -4,9 +4,15 @@ package AFKplayers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+
+import net.minecraft.server.v1_11_R1.Material;
 
 public class AFKplayers implements IAFKplayers {
 
@@ -34,7 +40,6 @@ public class AFKplayers implements IAFKplayers {
 	@Override
 	public void remove(Player player) { 
 		
-		players.remove(player);
 		for(AFKplayer plr : players) {
 			
 			if(plr.getPlayer() == player) {
@@ -43,6 +48,21 @@ public class AFKplayers implements IAFKplayers {
 		    	plr.getEntity().remove();
 				
 				players.remove(plr);
+				
+				if(!isSafe(player.getLocation())) {
+					
+					Location spyglass = player.getWorld().getHighestBlockAt(player.getLocation()).getLocation();
+					
+					while(!isSafe(spyglass)) {
+						
+						// Add 1 to x pos
+						spyglass.add(1, 0, 0);
+						spyglass = player.getWorld().getHighestBlockAt(spyglass).getLocation();
+					}
+					
+					player.teleport(spyglass);
+				}
+				
 				return;
 			}
 		}
@@ -71,9 +91,41 @@ public class AFKplayers implements IAFKplayers {
 			
 			if(plr.getPlayer() == player) {
 				
-		    	player.setSpectatorTarget(plr.getEntity());
-				return;
+		    	if(player.getGameMode() == GameMode.SPECTATOR) player.setSpectatorTarget(plr.getEntity());
+				
+		    	return;
 			}
 		}
 	}
+	
+    public boolean isSafe(Location location) {
+    	
+        Block feet = location.getBlock();
+        
+        if (!feet.getType().isTransparent()) { return false; }
+        
+        Block head = feet.getRelative(BlockFace.UP);
+        
+        if (!head.getType().isTransparent()) { return false; }
+        
+        Block ground = feet.getRelative(BlockFace.DOWN);
+        
+        if (!ground.getType().isSolid()) { return false; }
+        
+        
+        Location spyglass = feet.getLocation();
+        int height = 0;
+        
+        while(spyglass.getBlock().getType().isTransparent() && spyglass.getY() != 0) {
+        	
+        	spyglass.add(0, -1, 0);
+        	++height;
+        }
+        
+        if(height > 5) { return false; }
+        
+        if(spyglass.getBlock().getType() == org.bukkit.Material.LAVA) { return false; }
+        
+        return true;
+    }
 }
