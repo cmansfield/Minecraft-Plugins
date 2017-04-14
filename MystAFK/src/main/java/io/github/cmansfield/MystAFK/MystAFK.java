@@ -36,6 +36,7 @@ import Listeners.PlayerTeleportListener;
 import PlayerPlayTime.IPlayerPlayTime;
 import PlayerPlayTime.PlayerPlayTime;
 import PlayerTags.PlayerTags;
+import Sounds.Sounds;
 import net.minecraft.server.v1_11_R1.IChatBaseComponent;
 import net.minecraft.server.v1_11_R1.IChatBaseComponent.ChatSerializer;
 import net.minecraft.server.v1_11_R1.PacketPlayOutChat;
@@ -249,7 +250,7 @@ public final class MystAFK extends JavaPlugin {
 
     	player.sendMessage(ChatColor.RED + this.getConfig().getString("messages.ChatPrompt", "You've been playing for awhile, are you AFK?"));
     	
-    	player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_HARP, 1, 1);
+    	player.getWorld().playSound(player.getLocation(), Sounds.getSound(this.getConfig().getString("Sound", "BLOCK_NOTE_HARP")), 1, 1);
 
         IChatBaseComponent comp = 
 			ChatSerializer.a(

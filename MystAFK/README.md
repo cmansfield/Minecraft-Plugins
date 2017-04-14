@@ -116,5 +116,5 @@
 <li>[x] Add a list of commands in config.yml when a player is kicked</li>
 <li>[ ] When a player is no longer AFk move them to a safe location</li>
 <li>[ ] Prevent players from moving AFK players with pistons</li>
-<li>[ ] Add config settings for sounds</li>
+<li>[x] Add config settings for sounds</li>
 </ol>

@@ -25,6 +25,7 @@ KickCommands:
     - time set day
     - say \p was kicked for being AFK
     - test command 3
+Sound: RECORD_CAT
 messages:
     ArmorStandEditErrMsg: You cannot edit this at this time
     NoAFKkeyErrMsg: You are not permitted to use this command

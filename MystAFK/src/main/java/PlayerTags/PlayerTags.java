@@ -2,7 +2,9 @@ package PlayerTags;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.bukkit.Color;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 public class PlayerTags {
