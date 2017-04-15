@@ -191,7 +191,7 @@ public final class MystAFK extends JavaPlugin {
 		if(isAFK(player)) {
 
 			afkPlayers.remove(player);
-			playerTimer.resetPlayerTimer(player);
+			//playerTimer.resetPlayerTimer(player);
 	
 			// Update the global chat message
 			msg = (new PlayerNameDecorator(
@@ -201,6 +201,11 @@ public final class MystAFK extends JavaPlugin {
 
 			// Remove the AFK player tag
 			PlayerTags.removeTag(player, "[" + this.getConfig().getString("messages.PlayerTag", "AFK") + "]");
+		
+			if(playerTimer.isAboutToGetKicked(player)) {
+				
+				sendPlayerPrompt(player);
+			}
 		}
 		else {
 
@@ -231,7 +236,6 @@ public final class MystAFK extends JavaPlugin {
     	
     	final byte ACTIONBAR_INDENTIFIER = 2;
 
-    			
 	    IChatBaseComponent barmsg = 
 			ChatSerializer.a(
 				"{\"text\":\""

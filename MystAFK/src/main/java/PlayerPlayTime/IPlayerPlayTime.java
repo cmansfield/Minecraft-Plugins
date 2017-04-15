@@ -8,4 +8,5 @@ public interface IPlayerPlayTime {
 	public abstract void removePlayer(Player player);
 	public abstract void resetPlayerTimer(Player player);
 	public abstract void addSecondToAllPlayersTimer();
+	public abstract boolean isAboutToGetKicked(Player player);
 }

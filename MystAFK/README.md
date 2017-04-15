@@ -116,5 +116,6 @@
 <li>[x] Add a list of commands in config.yml when a player is kicked</li>
 <li>[x] When a player is no longer AFk move them to a safe location</li>
 <li>[x] Add config settings for sounds</li>
+<li>[x] Make it so only chat prompts reset a player's timer</li>
 <li>[-] Prevent players from moving AFK players with pistons</li>
 </ol>

@@ -91,11 +91,11 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 		while (iter.hasNext()) {
 
 		    entry = iter.next();
-
+		    Player player = entry.getKey();
+		    int timer = entry.getValue();
+		    
 			try {
-			    if(entry.getValue() >= kickTimeOut) {
-			    	
-			    	Player player = entry.getKey();
+			    if(timer >= kickTimeOut) {
 			    	
 			    	// The iter.remove was moved into thread safe code
 			    	//iter.remove();
@@ -110,56 +110,55 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 			    
 			    // Actionbar only lasts for 1 second, we have
 			    // to send the actionbar packet every second
-			    if(entry.getValue() > (kickTimeOut - FIVE_MIN_IN_SECONDS) && entry.getValue() > timeOut) {
+			    if(timer > (kickTimeOut - FIVE_MIN_IN_SECONDS) && timer > timeOut) {
 			   
-			    	plugin.sendPlayerActionbar(entry.getKey(), 
+			    	plugin.sendPlayerActionbar(player, 
 		    			new TimeSecondsDecorator(
 		    				new PlayerNameDecorator(
 		    					configMsgKick, 
-		    					entry.getKey().getName()
+		    					player.getName()
 			    			), 
-		    				kickTimeOut - entry.getValue()
+		    				kickTimeOut - timer
 		    			)
 		    		);
 			    }
-			    else if(entry.getValue() >= timeOut) {
-			    	
-			    	plugin.sendPlayerActionbar(entry.getKey(), 
+			    else if(timer >= timeOut) {
+
+			    	plugin.sendPlayerActionbar(player, 
 		    			new TimeSecondsDecorator(
 		    				new PlayerNameDecorator(
 		    						configMsgYouAreAFK, 
-		    					entry.getKey().getName()
+		    					player.getName()
 			    			), 
-		    				entry.getValue() - timeOut
-		    			)
-		    		);
-			    }
+		    				timer - timeOut
+			    		)
+			    	);
+		    	}
+
+
+			    if(plugin.isAFK(player)) continue;
 			    
-			    if(plugin.isAFK(entry.getKey())) continue;
-			    
-			    if(entry.getValue() == sendPrompt) {
+			    if(timer == sendPrompt) {
 			    	
-			    	plugin.sendPlayerPrompt(entry.getKey());
+			    	plugin.sendPlayerPrompt(player);
 			    }
-			    else if(entry.getValue() == timeOut){
+			    else if(timer == timeOut){
 	
 			    	//iter.remove();
-			    	plugin.toggleAFK(entry.getKey());
+			    	plugin.toggleAFK(player);
 			    }
 	
 			    // Actionbar only lasts for 1 second, we have
 			    // to send the actionbar packet every second
-			    if(entry.getValue() >= sendPrompt) {
+			    if(timer >= sendPrompt && timer < timeOut) {
 			    	
-			    	plugin.sendPlayerActionbar(entry.getKey(), configMsgAFK);
-			    
-			    	plugin.sendPlayerActionbar(entry.getKey(), 
+			    	plugin.sendPlayerActionbar(player, 
 		    			new TimeSecondsDecorator(
 		    				new PlayerNameDecorator(
 		    					configMsgAFK, 
-		    					entry.getKey().getName()
+		    					player.getName()
 			    			), 
-		    				timeOut - entry.getValue()
+		    				timeOut - timer
 		    			)
 			    	);
 			    }
@@ -182,5 +181,17 @@ public class PlayerPlayTime implements IPlayerPlayTime {
 				if(!entry.getKey().isOnline()) { iter.remove(); }
 			}
 		}
+	}
+
+	
+	@Override
+	public boolean isAboutToGetKicked(Player player) {
+		
+		if(playerTimers.get(player) == null) return false;
+		
+		
+		if(playerTimers.get(player) >= sendPrompt) return true;
+		
+		return false;
 	}
 }
