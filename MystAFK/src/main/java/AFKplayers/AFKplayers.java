@@ -2,20 +2,19 @@
 package AFKplayers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-
-import net.minecraft.server.v1_11_R1.Material;
 
 public class AFKplayers implements IAFKplayers {
 
+	Map<Player,Location> playerLocMap = new HashMap<Player,Location>();
 	private List<AFKplayer> players;
 	
 	public AFKplayers() { this.players = new ArrayList<AFKplayer>(); }
@@ -23,22 +22,20 @@ public class AFKplayers implements IAFKplayers {
 	@Override
 	public boolean contains(Player player) { 
 		
-		for(AFKplayer plr : players) {
-			
-			if(plr.getPlayer() == player) return true;
-		}
-		
-		return false;
+		return (playerLocMap.get(player) != null);
 	}
 
 	@Override
 	public void add(Player player) { 
 		
 		players.add(new AFKplayer(player, player.getGameMode())); 
+		playerLocMap.put(player, player.getLocation());
 	}
 
 	@Override
 	public void remove(Player player) { 
+		
+		if(playerLocMap.get(player) == null) return;
 		
 		for(AFKplayer plr : players) {
 			
@@ -48,6 +45,7 @@ public class AFKplayers implements IAFKplayers {
 		    	plr.getEntity().remove();
 				
 				players.remove(plr);
+				playerLocMap.remove(plr);
 				
 				if(!isSafe(player.getLocation())) {
 					

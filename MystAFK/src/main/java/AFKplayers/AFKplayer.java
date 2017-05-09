@@ -63,4 +63,33 @@ public class AFKplayer implements IAFKplayer {
 	
 	@Override
 	public final Entity getEntity() { return specEntity; }
+	
+	@Override
+	public boolean equals(final Object obj) {
+		
+		if(this == obj) return true;
+		if(obj == null) return false;
+		if(getClass() != obj.getClass()) 
+			if(!(obj instanceof Player))
+				return false;
+		
+		Player rhsPlayer;
+		if(obj instanceof AFKplayer) {
+			rhsPlayer = ((AFKplayer)obj).getPlayer();
+		}
+		else {
+			rhsPlayer = (Player)obj;
+		}
+		
+		if(!player.equals(rhsPlayer))
+			return false;
+
+		return true;
+	}
+	
+	@Override
+	public int hashCode() {
+		
+		return player.hashCode();
+	}
 }
