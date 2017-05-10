@@ -13,4 +13,5 @@ public abstract interface IAFKplayers {
 	public abstract IAFKplayers copy();
 	public abstract List<AFKplayer> getPlayers();
 	public abstract void reattachPlayerToEntity(Player player);
+	public abstract void checkLocation();
 }

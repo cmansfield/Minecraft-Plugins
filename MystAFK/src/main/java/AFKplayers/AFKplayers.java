@@ -12,12 +12,18 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 
+import io.github.cmansfield.MystAFK.MystAFK;
+
 public class AFKplayers implements IAFKplayers {
 
-	Map<Player,Location> playerLocMap = new HashMap<Player,Location>();
+	Map<Player,Location> playerLocMap;
 	private List<AFKplayer> players;
 	
-	public AFKplayers() { this.players = new ArrayList<AFKplayer>(); }
+	public AFKplayers() { 
+		
+		this.players = new ArrayList<AFKplayer>(); 
+		this.playerLocMap = new HashMap<Player,Location>();
+	}
 	
 	@Override
 	public boolean contains(Player player) { 
@@ -93,6 +99,24 @@ public class AFKplayers implements IAFKplayers {
 				
 		    	return;
 			}
+		}
+	}
+	
+	@Override
+	public void checkLocation() {
+		
+		for(AFKplayer plr : players) {
+			
+			Location afkLoc = playerLocMap.get(plr);
+
+			if(afkLoc == plr.getPlayer().getLocation()) continue;
+			//if(plr.getGameMode() != GameMode.SPECTATOR) continue;
+			
+			afkLoc.getBlock().setType(org.bukkit.Material.AIR);
+			afkLoc.getBlock().getRelative(BlockFace.UP).setType(org.bukkit.Material.AIR);
+		
+			plr.getEntity().teleport(afkLoc);
+			plr.getPlayer().setSpectatorTarget(plr.getEntity());
 		}
 	}
 	

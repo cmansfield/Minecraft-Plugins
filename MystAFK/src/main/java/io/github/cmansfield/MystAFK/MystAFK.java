@@ -91,9 +91,10 @@ public final class MystAFK extends JavaPlugin {
         	public void run() {
         		
         		playerTimer.addSecondToAllPlayersTimer();
+        		afkPlayers.checkLocation();
         	}
         }, TICKS_PER_SEC, TICKS_PER_SEC);
-
+        
         getLogger().info(this.getName() + " Plugin Enabled");
     }
 
