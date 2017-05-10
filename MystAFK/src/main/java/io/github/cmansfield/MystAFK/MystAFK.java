@@ -1,9 +1,5 @@
 
 
-// TODO: Make sure added player tags don't mess up previous tags
-// TODO: Use Regex to remove the player tag
-
-
 package io.github.cmansfield.MystAFK;
 
 import java.util.ArrayList;

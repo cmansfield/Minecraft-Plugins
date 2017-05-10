@@ -1,6 +1,6 @@
 name: MystAFK
 main: io.github.cmansfield.MystAFK.MystAFK
-version: 0.1.2
+version: 0.1.4
 author: AirsoftingFox
 description: A custom AFK plugin for http://mystserver.enjin.com/
 commands:
@@ -10,9 +10,6 @@ commands:
     NoAFK:
         description: Tells the server that a player is active, not to used manually by players
         usage: NO ACTION
-    clearcust:
-        description: A temp command to clear all players' custom names
-        usage: /clearcust
         
 permissions:
     mystafk.*:

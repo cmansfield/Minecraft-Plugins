@@ -1,4 +1,4 @@
-MystAFK - v0.1.3 (BETA)
+MystAFK - v0.1.4 (BETA)
 Author: AirsoftingFox
 
 MystAFK plugin is a custom plugin to meet unique AFK player needs. The 
